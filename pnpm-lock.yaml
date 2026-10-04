@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@abrclick/sdk':
+      '@sakoocloud/sdk':
         specifier: ^0.6.0
         version: 0.6.0
       '@modelcontextprotocol/sdk':
@@ -30,7 +30,7 @@ importers:
 
 packages:
 
-  '@abrclick/sdk@0.6.0':
+  '@sakoocloud/sdk@0.6.0':
     resolution: {integrity: sha512-yItPYq7lSLZDYEwFnXR8zUv7t/9kD0eDVOs45Y51yILiIrWS4+IYRQamTJNa8nTm0FvbBxSScQqc9sR+mmIYrw==}
     engines: {node: '>=18'}
 
@@ -517,7 +517,7 @@ packages:
 
 snapshots:
 
-  '@abrclick/sdk@0.6.0':
+  '@sakoocloud/sdk@0.6.0':
     dependencies:
       axios: 1.19.0
     transitivePeerDependencies:

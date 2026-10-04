@@ -1,17 +1,17 @@
 {
-  "name": "@abrclick/ai",
+  "name": "@sakoocloud/ai",
   "version": "0.8.1",
   "type": "module",
-  "description": "Give your AI coding tool full control of Abrclick — deploy apps, provision databases, manage domains, DNS, backups, and more (PaaS + DBaaS for abrclick). MCP server.",
+  "description": "Give your AI coding tool full control of SakooCloud — deploy apps, provision databases, manage domains, DNS, backups, and more (PaaS + DBaaS for sakoocloud). MCP server.",
   "private": false,
   "license": "SEE LICENSE IN LICENSE",
-  "author": "Abrclick <support@abrclick.cloud> (https://abrclick.ir)",
-  "homepage": "https://abrclick.ir",
+  "author": "SakooCloud <support@sakoocloud.cloud> (https://sakoocloud.ir)",
+  "homepage": "https://sakoocloud.ir",
   "bugs": {
-    "url": "https://github.com/abrclick/abrclick-ai/issues"
+    "url": "https://github.com/sakoocloud/sakoocloud-ai/issues"
   },
   "keywords": [
-    "abrclick",
+    "sakoocloud",
     "ai",
     "mcp",
     "model-context-protocol",
@@ -26,7 +26,7 @@
     "copilot"
   ],
   "bin": {
-    "abrclick-ai": "dist/index.js"
+    "sakoocloud-ai": "dist/index.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abrclick/abrclick-ai.git"
+    "url": "git+https://github.com/sakoocloud/sakoocloud-ai.git"
   },
   "publishConfig": {
     "access": "public",
@@ -53,7 +53,7 @@
     "release:major": "npm version major && git push --follow-tags"
   },
   "dependencies": {
-    "@abrclick/sdk": "^0.6.0",
+    "@sakoocloud/sdk": "^0.6.0",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "conf": "^13.1.0",
     "zod": "^3.25.76"

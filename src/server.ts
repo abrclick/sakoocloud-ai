@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { AbrclickClient } from "@abrclick/sdk";
+import type { SakooCloudClient } from "@sakoocloud/sdk";
 import { executeWithUserConfirmation, getToolAnnotations, redactSensitiveResult, requiresUserConfirmation } from "./security.js";
 import { tools } from "./tools.js";
 
@@ -25,10 +25,10 @@ interface AxiosError extends Error {
   isAxiosError?: boolean;
 }
 
-export function createServer(client: AbrclickClient): McpServer {
+export function createServer(client: SakooCloudClient): McpServer {
   const server = new McpServer(
     {
-      name: "abrclick-ai",
+      name: "sakoocloud-ai",
       version: "0.1.0",
     },
     {

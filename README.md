@@ -1,28 +1,28 @@
-# @abrclick/ai
+# @sakoocloud/ai
 
-**Give your AI coding tool full control of [Abrclick](https://abrclick.ir)** — the
+**Give your AI coding tool full control of [SakooCloud](https://sakoocloud.ir)** — the
 Farsi-first **PaaS + DBaaS** for Iran. Point any MCP-capable AI (Claude Code, Cursor,
 Codex, Windsurf, Copilot, Cline, …) at this package and it can create projects, deploy
 apps, provision databases and object storage, push to container registries, run serverless
 functions, schedule cron jobs, attach persistent disks, manage secrets, env vars, custom
-domains, DNS, backups, metrics, alerts, and team members — all on your Abrclick account,
+domains, DNS, backups, metrics, alerts, and team members — all on your SakooCloud account,
 straight from chat.
 
-It is a thin, safe wrapper over [`@abrclick/sdk`](https://www.npmjs.com/package/@abrclick/sdk)
+It is a thin, safe wrapper over [`@sakoocloud/sdk`](https://www.npmjs.com/package/@sakoocloud/sdk)
 and speaks the **Model Context Protocol (MCP)** over **stdio**, so it plugs into every MCP
 client the same way.
 
 > **What is this, exactly?** A local program your AI tool launches. Your AI never talks
-> to Abrclick directly — it calls the `abrclick_*` tools this package exposes, which call
-> the Abrclick API as you. No plugin store, no browser extension. One `npx` line.
+> to SakooCloud directly — it calls the `sakoocloud_*` tools this package exposes, which call
+> the SakooCloud API as you. No plugin store, no browser extension. One `npx` line.
 
 ## Products
 
-- [استقرار اپلیکیشن (PaaS)](https://abrclick.ir/paas) — deploy Node.js, Python, Go, PHP & Docker apps
-- [دیتابیس مدیریت‌شده (DBaaS)](https://abrclick.ir/databases) — managed PostgreSQL, Redis, MongoDB, MySQL
-- [فضای ذخیره‌سازی ابری (Object Storage)](https://abrclick.ir/object-storage) — S3-compatible buckets
-- [توابع بدون سرور (Serverless)](https://abrclick.ir/serverless) — run functions without managing servers
-- [همه‌ی محصولات](https://abrclick.ir/products)
+- [استقرار اپلیکیشن (PaaS)](https://sakoocloud.ir/paas) — deploy Node.js, Python, Go, PHP & Docker apps
+- [دیتابیس مدیریت‌شده (DBaaS)](https://sakoocloud.ir/databases) — managed PostgreSQL, Redis, MongoDB, MySQL
+- [فضای ذخیره‌سازی ابری (Object Storage)](https://sakoocloud.ir/object-storage) — S3-compatible buckets
+- [توابع بدون سرور (Serverless)](https://sakoocloud.ir/serverless) — run functions without managing servers
+- [همه‌ی محصولات](https://sakoocloud.ir/products)
 
 ## Why
 
@@ -34,40 +34,40 @@ database, links them, kicks off the build, tails the logs, and hands you the liv
 ## Prerequisites
 
 - Node.js **>= 18**
-- The Abrclick CLI, logged in once:
+- The SakooCloud CLI, logged in once:
 
   ```bash
-  npm i -g @abrclick/cli
-  abrclick login
+  npm i -g @sakoocloud/cli
+  sakoocloud login
   ```
 
-That's the whole setup. The MCP server reads the **same credentials `abrclick login`
+That's the whole setup. The MCP server reads the **same credentials `sakoocloud login`
 saves** — you don't paste a key anywhere, and there's no env var to keep in sync.
 
 ## Quick start
 
 ```bash
 # 1. log in once (opens your browser)
-abrclick login
+sakoocloud login
 
 # 2. add the MCP server — no key, no env
-claude mcp add abrclick -- npx -y @abrclick/ai
+claude mcp add sakoocloud -- npx -y @sakoocloud/ai
 ```
 
-Ask Claude: *"list my Abrclick projects"* — if it answers, you're wired up.
+Ask Claude: *"list my SakooCloud projects"* — if it answers, you're wired up.
 
 ## Authentication
 
 The server resolves your credentials in this order:
 
-1. **`abrclick login` (recommended).** The CLI stores a session (a short-lived access
+1. **`sakoocloud login` (recommended).** The CLI stores a session (a short-lived access
    token + a refresh token) in your OS config dir. The MCP server reads it, and **refreshes
    it automatically** in the background — a long-running editor session never goes stale,
    and you never restart anything. This is why there's no env var and no "reload your
    shell" dance.
-2. **`ABRCLICK_API_KEY` env var (CI / headless).** Set an `abr_sk_…` key when there's no
+2. **`SAKOOCLOUD_API_KEY` env var (CI / headless).** Set an `abr_sk_…` key when there's no
    interactive login — e.g. a cron job or a remote box. It takes precedence over the login
-   store when present. Create one with `abrclick keys create "ci"` or from **Settings →
+   store when present. Create one with `sakoocloud keys create "ci"` or from **Settings →
    API Keys** in the dashboard. API keys don't expire (no refresh needed).
 
 > **Why not just an API key in the config?** A full-access key sitting in a shell profile
@@ -80,25 +80,25 @@ The server resolves your credentials in this order:
 
 | Variable               | Purpose                                                                              |
 | ---------------------- | ------------------------------------------------------------------------------------ |
-| `ABRCLICK_API_KEY`     | An `abr_sk_…` key. Use for CI/headless; overrides the login store when set.           |
-| `ABRCLICK_TOKEN`       | Alias for `ABRCLICK_API_KEY` (matches the CLI's CI variable).                         |
-| `ABRCLICK_API_URL`     | Regional resource plane base URL. Override for self-host / dev.                       |
-| `ABRCLICK_ACCOUNT_URL` | Global identity plane (auth, regions, billing reads).                                 |
-| `ABRCLICK_REGION`      | A region's `api_url` to pin the resource plane to a specific region.                  |
+| `SAKOOCLOUD_API_KEY`     | An `abr_sk_…` key. Use for CI/headless; overrides the login store when set.           |
+| `SAKOOCLOUD_TOKEN`       | Alias for `SAKOOCLOUD_API_KEY` (matches the CLI's CI variable).                         |
+| `SAKOOCLOUD_API_URL`     | Regional resource plane base URL. Override for self-host / dev.                       |
+| `SAKOOCLOUD_ACCOUNT_URL` | Global identity plane (auth, regions, billing reads).                                 |
+| `SAKOOCLOUD_REGION`      | A region's `api_url` to pin the resource plane to a specific region.                  |
 
-> **Two planes.** Abrclick separates a *global account plane* (who you are, regions,
+> **Two planes.** SakooCloud separates a *global account plane* (who you are, regions,
 > billing) from *regional resource planes* (where your apps and databases actually run).
-> The package handles the split for you; `abrclick region use <slug>` (or `ABRCLICK_REGION`)
+> The package handles the split for you; `sakoocloud region use <slug>` (or `SAKOOCLOUD_REGION`)
 > picks the region, and the MCP server follows it.
 
 ## Wiring it into an AI tool
 
-First run `abrclick login` once. Then add the server — **no `--env`, no key in the file**:
+First run `sakoocloud login` once. Then add the server — **no `--env`, no key in the file**:
 
 ### Claude Code
 
 ```bash
-claude mcp add abrclick -- npx -y @abrclick/ai
+claude mcp add sakoocloud -- npx -y @sakoocloud/ai
 ```
 
 Or add it to `.mcp.json` in your project (safe to commit — no secret in it):
@@ -106,9 +106,9 @@ Or add it to `.mcp.json` in your project (safe to commit — no secret in it):
 ```json
 {
   "mcpServers": {
-    "abrclick": {
+    "sakoocloud": {
       "command": "npx",
-      "args": ["-y", "@abrclick/ai"]
+      "args": ["-y", "@sakoocloud/ai"]
     }
   }
 }
@@ -119,9 +119,9 @@ Or add it to `.mcp.json` in your project (safe to commit — no secret in it):
 Add to `~/.codex/config.toml`:
 
 ```toml
-[mcp_servers.abrclick]
+[mcp_servers.sakoocloud]
 command = "npx"
-args = ["-y", "@abrclick/ai"]
+args = ["-y", "@sakoocloud/ai"]
 ```
 
 ### Cursor
@@ -131,9 +131,9 @@ Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
 ```json
 {
   "mcpServers": {
-    "abrclick": {
+    "sakoocloud": {
       "command": "npx",
-      "args": ["-y", "@abrclick/ai"]
+      "args": ["-y", "@sakoocloud/ai"]
     }
   }
 }
@@ -141,7 +141,7 @@ Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
 
 ### Windsurf / Cline / Continue / any other MCP client
 
-Launch `npx -y @abrclick/ai` as a **stdio** MCP server. It picks up your `abrclick login`
+Launch `npx -y @sakoocloud/ai` as a **stdio** MCP server. It picks up your `sakoocloud login`
 session automatically. The config blocks above are the same shape every client uses — copy
 one and change the file it goes in.
 
@@ -152,10 +152,10 @@ No interactive login available? Set an API key in the server's environment inste
 ```json
 {
   "mcpServers": {
-    "abrclick": {
+    "sakoocloud": {
       "command": "npx",
-      "args": ["-y", "@abrclick/ai"],
-      "env": { "ABRCLICK_API_KEY": "abr_sk_xxx" }
+      "args": ["-y", "@sakoocloud/ai"],
+      "env": { "SAKOOCLOUD_API_KEY": "abr_sk_xxx" }
     }
   }
 }
@@ -163,7 +163,7 @@ No interactive login available? Set an API key in the server's environment inste
 
 ## Tools
 
-**166 tools**, all `abrclick_`-prefixed, grouped by resource:
+**166 tools**, all `sakoocloud_`-prefixed, grouped by resource:
 
 ### Identity & regions
 
@@ -298,7 +298,7 @@ No interactive login available? Set an API key in the server's environment inste
 
 ## Bundled skill
 
-This package ships an **Abrclick skill** (`skills/abrclick/SKILL.md`) that teaches your AI
+This package ships an **SakooCloud skill** (`skills/sakoocloud/SKILL.md`) that teaches your AI
 how to actually use these tools well — the project→app→database model, the deploy flow,
 how to poll build logs, how to link a database, and which calls are destructive. MCP
 clients that support skills load it automatically; others can read it for the same
@@ -313,14 +313,14 @@ foot-guns:
   exposed. Plan upgrades/downgrades, add-on **purchases**, and wallet **top-ups** are
   intentionally **not** — money moves are a human decision in the dashboard.
 - **Sign-in is not exposed.** No login, register, password change, or device-code flow —
-  your `abrclick login` session (or an API key) already establishes identity. GitHub
+  your `sakoocloud login` session (or an API key) already establishes identity. GitHub
   **repo access** (for deploys) is exposed; GitHub/Google **sign-in** is not.
 - **API-key metadata and revocation are exposed.** `list_api_keys` and `revoke_api_key`
   require an `admin`-scoped key or a full login session. Creating a key returns a plaintext
   credential, so it is intentionally unavailable through MCP; use the Console or CLI.
 - **Mutating and unreviewed calls require confirmation.** The server asks through MCP form
   elicitation before executing them. If the client does not support form elicitation, the
-  call fails closed without invoking the Abrclick API. Tool descriptions also flag
+  call fails closed without invoking the SakooCloud API. Tool descriptions also flag
   DESTRUCTIVE operations
   (`delete_project`, `delete_app`, `delete_database`, `delete_bucket`, `delete_registry`,
   `delete_function`, `delete_disk`, `delete_backup`, `delete_dns_zone`, `delete_dns_record`,
@@ -329,9 +329,9 @@ foot-guns:
   another confirmation layer.
 - **Tarball / interactive ops need the CLI.** `deploy_app` supports `git` and `image`
   fully; `source_type: "upload"` deploys a tarball your AI can't stream — run
-  `abrclick deploy` for local-folder deploys. Likewise an **interactive shell / one-off
+  `sakoocloud deploy` for local-folder deploys. Likewise an **interactive shell / one-off
   exec** into a running container is a streaming WebSocket, not a request/response tool —
-  use `abrclick shell` / `abrclick run`.
+  use `sakoocloud shell` / `sakoocloud run`.
 - **Credentials stay out of MCP.** Retrieving or rotating database, bucket, and registry
   credentials and creating API keys are intentionally unavailable; use the Console or CLI.
   Environment secret values never return; rotate them by replacing values with `set_env`
@@ -340,14 +340,14 @@ foot-guns:
 ## Development
 
 ```bash
-npm install        # pulls @abrclick/sdk from the registry
+npm install        # pulls @sakoocloud/sdk from the registry
 npm run type-check # tsc --noEmit
 npm run build      # tsc → dist/
 npm test           # build + security regression tests
-npm start          # runs dist/index.js (uses your `abrclick login` session)
+npm start          # runs dist/index.js (uses your `sakoocloud login` session)
 ```
 
-The tool surface tracks `@abrclick/sdk`. When the SDK gains a capability, add a matching
+The tool surface tracks `@sakoocloud/sdk`. When the SDK gains a capability, add a matching
 `ToolDefinition` in `src/tools.ts` and list it in the `tools` array — one wrapper per SDK
 method.
 

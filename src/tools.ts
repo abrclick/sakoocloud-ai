@@ -1,5 +1,5 @@
 import { z, ZodRawShape } from "zod";
-import type { AbrclickClient, EnvVar } from "@abrclick/sdk";
+import type { SakooCloudClient, EnvVar } from "@sakoocloud/sdk";
 
 type Json = Record<string, unknown>;
 
@@ -7,35 +7,35 @@ interface ToolDefinition {
   name: string;
   description: string;
   inputSchema: ZodRawShape;
-  handler: (client: AbrclickClient, args: Record<string, unknown>) => Promise<unknown>;
+  handler: (client: SakooCloudClient, args: Record<string, unknown>) => Promise<unknown>;
 }
 
 // Identity/regions
 const whoami: ToolDefinition = {
-  name: "abrclick_whoami",
-  description: "Get current authenticated Abrclick user information",
+  name: "sakoocloud_whoami",
+  description: "Get current authenticated SakooCloud user information",
   inputSchema: {},
   handler: async (client) => client.getMe(),
 };
 
 const listRegions: ToolDefinition = {
-  name: "abrclick_list_regions",
-  description: "List available Abrclick regions for deployment",
+  name: "sakoocloud_list_regions",
+  description: "List available SakooCloud regions for deployment",
   inputSchema: {},
   handler: async (client) => client.listRegions(),
 };
 
 // Projects
 const listProjects: ToolDefinition = {
-  name: "abrclick_list_projects",
-  description: "List all Abrclick projects for the authenticated user",
+  name: "sakoocloud_list_projects",
+  description: "List all SakooCloud projects for the authenticated user",
   inputSchema: {},
   handler: async (client) => client.getProjects(),
 };
 
 const createProject: ToolDefinition = {
-  name: "abrclick_create_project",
-  description: "Create a new Abrclick project",
+  name: "sakoocloud_create_project",
+  description: "Create a new SakooCloud project",
   inputSchema: {
     name: z.string(),
     description: z.string().optional(),
@@ -44,8 +44,8 @@ const createProject: ToolDefinition = {
 };
 
 const getProject: ToolDefinition = {
-  name: "abrclick_get_project",
-  description: "Get Abrclick project details by ID",
+  name: "sakoocloud_get_project",
+  description: "Get SakooCloud project details by ID",
   inputSchema: {
     project_id: z.string(),
   },
@@ -53,8 +53,8 @@ const getProject: ToolDefinition = {
 };
 
 const updateProject: ToolDefinition = {
-  name: "abrclick_update_project",
-  description: "Update an Abrclick project",
+  name: "sakoocloud_update_project",
+  description: "Update an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
     name: z.string().optional(),
@@ -67,8 +67,8 @@ const updateProject: ToolDefinition = {
 };
 
 const deleteProject: ToolDefinition = {
-  name: "abrclick_delete_project",
-  description: "Delete an Abrclick project (DESTRUCTIVE — removes the project and its resources)",
+  name: "sakoocloud_delete_project",
+  description: "Delete an SakooCloud project (DESTRUCTIVE — removes the project and its resources)",
   inputSchema: {
     project_id: z.string(),
   },
@@ -80,8 +80,8 @@ const deleteProject: ToolDefinition = {
 
 // Project members / invites / activity
 const listMembers: ToolDefinition = {
-  name: "abrclick_list_members",
-  description: "List members of an Abrclick project (with their roles)",
+  name: "sakoocloud_list_members",
+  description: "List members of an SakooCloud project (with their roles)",
   inputSchema: {
     project_id: z.string(),
   },
@@ -92,8 +92,8 @@ const listMembers: ToolDefinition = {
 };
 
 const inviteMember: ToolDefinition = {
-  name: "abrclick_invite_member",
-  description: "Invite a user to an Abrclick project by email with a role",
+  name: "sakoocloud_invite_member",
+  description: "Invite a user to an SakooCloud project by email with a role",
   inputSchema: {
     project_id: z.string(),
     email: z.string(),
@@ -107,8 +107,8 @@ const inviteMember: ToolDefinition = {
 };
 
 const removeMember: ToolDefinition = {
-  name: "abrclick_remove_member",
-  description: "Remove a member from an Abrclick project",
+  name: "sakoocloud_remove_member",
+  description: "Remove a member from an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
     user_id: z.string(),
@@ -120,7 +120,7 @@ const removeMember: ToolDefinition = {
 };
 
 const updateMemberRole: ToolDefinition = {
-  name: "abrclick_update_member_role",
+  name: "sakoocloud_update_member_role",
   description: "Change a project member's role",
   inputSchema: {
     project_id: z.string(),
@@ -136,8 +136,8 @@ const updateMemberRole: ToolDefinition = {
 };
 
 const listInvites: ToolDefinition = {
-  name: "abrclick_list_invites",
-  description: "List pending member invites for an Abrclick project",
+  name: "sakoocloud_list_invites",
+  description: "List pending member invites for an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
   },
@@ -148,7 +148,7 @@ const listInvites: ToolDefinition = {
 };
 
 const cancelInvite: ToolDefinition = {
-  name: "abrclick_cancel_invite",
+  name: "sakoocloud_cancel_invite",
   description: "Cancel a pending project invite by its token",
   inputSchema: {
     token: z.string(),
@@ -160,8 +160,8 @@ const cancelInvite: ToolDefinition = {
 };
 
 const getActivity: ToolDefinition = {
-  name: "abrclick_get_activity",
-  description: "Get the recent activity/audit log for an Abrclick project",
+  name: "sakoocloud_get_activity",
+  description: "Get the recent activity/audit log for an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
   },
@@ -173,8 +173,8 @@ const getActivity: ToolDefinition = {
 
 // Apps
 const listApps: ToolDefinition = {
-  name: "abrclick_list_apps",
-  description: "List Abrclick apps (optionally filtered by project)",
+  name: "sakoocloud_list_apps",
+  description: "List SakooCloud apps (optionally filtered by project)",
   inputSchema: {
     project_id: z.string().optional(),
     page: z.number().optional(),
@@ -189,9 +189,9 @@ const listApps: ToolDefinition = {
 };
 
 const createApp: ToolDefinition = {
-  name: "abrclick_create_app",
+  name: "sakoocloud_create_app",
   description:
-    "Create a new Abrclick app. cpu_limit/memory_limit MUST be a matching pair from a defined instance tier — call abrclick_get_tiers with type='app' and use one tier's exact cpu/mem. Never invent custom values (e.g. 1400m / 2560Mi); off-tier sizes are rejected. Omit both to get the smallest tier default.",
+    "Create a new SakooCloud app. cpu_limit/memory_limit MUST be a matching pair from a defined instance tier — call sakoocloud_get_tiers with type='app' and use one tier's exact cpu/mem. Never invent custom values (e.g. 1400m / 2560Mi); off-tier sizes are rejected. Omit both to get the smallest tier default.",
   inputSchema: {
     project_id: z.string(),
     name: z.string(),
@@ -200,11 +200,11 @@ const createApp: ToolDefinition = {
     cpu_limit: z
       .string()
       .optional()
-      .describe("Must equal a tier's cpu from abrclick_get_tiers(type='app'). Pair with the SAME tier's memory_limit."),
+      .describe("Must equal a tier's cpu from sakoocloud_get_tiers(type='app'). Pair with the SAME tier's memory_limit."),
     memory_limit: z
       .string()
       .optional()
-      .describe("Must equal the SAME tier's mem from abrclick_get_tiers(type='app'). Pair with that tier's cpu_limit."),
+      .describe("Must equal the SAME tier's mem from sakoocloud_get_tiers(type='app'). Pair with that tier's cpu_limit."),
     root_dir: z.string().optional(),
   },
   handler: async (client, args) => {
@@ -222,8 +222,8 @@ const createApp: ToolDefinition = {
 };
 
 const getApp: ToolDefinition = {
-  name: "abrclick_get_app",
-  description: "Get Abrclick app details by ID",
+  name: "sakoocloud_get_app",
+  description: "Get SakooCloud app details by ID",
   inputSchema: {
     app_id: z.string(),
   },
@@ -231,8 +231,8 @@ const getApp: ToolDefinition = {
 };
 
 const updateApp: ToolDefinition = {
-  name: "abrclick_update_app",
-  description: "Update an Abrclick app configuration",
+  name: "sakoocloud_update_app",
+  description: "Update an SakooCloud app configuration",
   inputSchema: {
     app_id: z.string(),
     cpu_limit: z.string().optional(),
@@ -255,8 +255,8 @@ const updateApp: ToolDefinition = {
 };
 
 const deleteApp: ToolDefinition = {
-  name: "abrclick_delete_app",
-  description: "Delete an Abrclick app",
+  name: "sakoocloud_delete_app",
+  description: "Delete an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
   },
@@ -267,8 +267,8 @@ const deleteApp: ToolDefinition = {
 };
 
 const startApp: ToolDefinition = {
-  name: "abrclick_start_app",
-  description: "Start an Abrclick app",
+  name: "sakoocloud_start_app",
+  description: "Start an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
   },
@@ -279,8 +279,8 @@ const startApp: ToolDefinition = {
 };
 
 const stopApp: ToolDefinition = {
-  name: "abrclick_stop_app",
-  description: "Stop an Abrclick app",
+  name: "sakoocloud_stop_app",
+  description: "Stop an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
   },
@@ -291,8 +291,8 @@ const stopApp: ToolDefinition = {
 };
 
 const restartApp: ToolDefinition = {
-  name: "abrclick_restart_app",
-  description: "Restart an Abrclick app",
+  name: "sakoocloud_restart_app",
+  description: "Restart an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
   },
@@ -303,9 +303,9 @@ const restartApp: ToolDefinition = {
 };
 
 const deployApp: ToolDefinition = {
-  name: "abrclick_deploy_app",
+  name: "sakoocloud_deploy_app",
   description:
-    "Deploy an Abrclick app. source_type 'git' builds from the app's configured repo (optionally pin git_commit_sha); 'image' deploys a prebuilt image (image_tag); 'upload' deploys a source tarball previously uploaded via abrclick_get_source_upload_url (source_key). NOTE: uploading the tarball bytes is a file transfer this tool can't perform — the human must run `abrclick deploy` locally for tarball uploads.",
+    "Deploy an SakooCloud app. source_type 'git' builds from the app's configured repo (optionally pin git_commit_sha); 'image' deploys a prebuilt image (image_tag); 'upload' deploys a source tarball previously uploaded via sakoocloud_get_source_upload_url (source_key). NOTE: uploading the tarball bytes is a file transfer this tool can't perform — the human must run `sakoocloud deploy` locally for tarball uploads.",
   inputSchema: {
     app_id: z.string(),
     source_type: z.enum(["git", "image", "upload"]),
@@ -326,9 +326,9 @@ const deployApp: ToolDefinition = {
 };
 
 const getSourceUploadUrl: ToolDefinition = {
-  name: "abrclick_get_source_upload_url",
+  name: "sakoocloud_get_source_upload_url",
   description:
-    "Get a presigned URL to upload an app source tarball (returns source_key + upload URL). The actual byte upload must be done by the human via `abrclick deploy`; this only mints the URL.",
+    "Get a presigned URL to upload an app source tarball (returns source_key + upload URL). The actual byte upload must be done by the human via `sakoocloud deploy`; this only mints the URL.",
   inputSchema: {
     app_id: z.string(),
   },
@@ -336,8 +336,8 @@ const getSourceUploadUrl: ToolDefinition = {
 };
 
 const getSourceDownloadUrl: ToolDefinition = {
-  name: "abrclick_get_source_download_url",
-  description: "Get a presigned URL to download the current source tarball of an Abrclick app",
+  name: "sakoocloud_get_source_download_url",
+  description: "Get a presigned URL to download the current source tarball of an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
   },
@@ -346,8 +346,8 @@ const getSourceDownloadUrl: ToolDefinition = {
 
 // Environments (staging/development clones) + promote
 const listEnvironments: ToolDefinition = {
-  name: "abrclick_list_environments",
-  description: "List an Abrclick app's environment slots (production/staging/development)",
+  name: "sakoocloud_list_environments",
+  description: "List an SakooCloud app's environment slots (production/staging/development)",
   inputSchema: {
     app_id: z.string(),
   },
@@ -358,8 +358,8 @@ const listEnvironments: ToolDefinition = {
 };
 
 const createEnvironment: ToolDefinition = {
-  name: "abrclick_create_environment",
-  description: "Create a staging or development environment clone for an Abrclick app",
+  name: "sakoocloud_create_environment",
+  description: "Create a staging or development environment clone for an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
     environment: z.enum(["staging", "development"]),
@@ -369,9 +369,9 @@ const createEnvironment: ToolDefinition = {
 };
 
 const promoteApp: ToolDefinition = {
-  name: "abrclick_promote_app",
+  name: "sakoocloud_promote_app",
   description:
-    "Promote an Abrclick app's build to another environment without rebuilding. Promoting TO production requires confirm_production: true.",
+    "Promote an SakooCloud app's build to another environment without rebuilding. Promoting TO production requires confirm_production: true.",
   inputSchema: {
     app_id: z.string(),
     to: z.enum(["production", "staging", "development"]),
@@ -386,8 +386,8 @@ const promoteApp: ToolDefinition = {
 };
 
 const redeployApp: ToolDefinition = {
-  name: "abrclick_redeploy_app",
-  description: "Redeploy an Abrclick app with the last deployment configuration",
+  name: "sakoocloud_redeploy_app",
+  description: "Redeploy an SakooCloud app with the last deployment configuration",
   inputSchema: {
     app_id: z.string(),
   },
@@ -395,8 +395,8 @@ const redeployApp: ToolDefinition = {
 };
 
 const listDeployments: ToolDefinition = {
-  name: "abrclick_list_deployments",
-  description: "List Abrclick app deployment history",
+  name: "sakoocloud_list_deployments",
+  description: "List SakooCloud app deployment history",
   inputSchema: {
     app_id: z.string(),
     page: z.number().optional(),
@@ -408,8 +408,8 @@ const listDeployments: ToolDefinition = {
 };
 
 const rollbackDeployment: ToolDefinition = {
-  name: "abrclick_rollback_deployment",
-  description: "Rollback an Abrclick app to a previous deployment",
+  name: "sakoocloud_rollback_deployment",
+  description: "Rollback an SakooCloud app to a previous deployment",
   inputSchema: {
     app_id: z.string(),
     deploy_id: z.string(),
@@ -420,8 +420,8 @@ const rollbackDeployment: ToolDefinition = {
 };
 
 const retryDeployment: ToolDefinition = {
-  name: "abrclick_retry_deployment",
-  description: "Retry a failed Abrclick deployment",
+  name: "sakoocloud_retry_deployment",
+  description: "Retry a failed SakooCloud deployment",
   inputSchema: {
     app_id: z.string(),
     deploy_id: z.string(),
@@ -432,8 +432,8 @@ const retryDeployment: ToolDefinition = {
 };
 
 const getBuildLogs: ToolDefinition = {
-  name: "abrclick_get_build_logs",
-  description: "Get Abrclick app build logs for a deployment",
+  name: "sakoocloud_get_build_logs",
+  description: "Get SakooCloud app build logs for a deployment",
   inputSchema: {
     app_id: z.string(),
     deploy_id: z.string(),
@@ -445,8 +445,8 @@ const getBuildLogs: ToolDefinition = {
 };
 
 const getRuntimeLogs: ToolDefinition = {
-  name: "abrclick_get_runtime_logs",
-  description: "Get Abrclick app runtime logs",
+  name: "sakoocloud_get_runtime_logs",
+  description: "Get SakooCloud app runtime logs",
   inputSchema: {
     app_id: z.string(),
     lines: z.number().optional(),
@@ -459,8 +459,8 @@ const getRuntimeLogs: ToolDefinition = {
 
 // Env
 const getEnv: ToolDefinition = {
-  name: "abrclick_get_env",
-  description: "Get Abrclick app environment variables with secret values masked-only",
+  name: "sakoocloud_get_env",
+  description: "Get SakooCloud app environment variables with secret values masked-only",
   inputSchema: {
     app_id: z.string(),
   },
@@ -471,8 +471,8 @@ const getEnv: ToolDefinition = {
 };
 
 const setEnv: ToolDefinition = {
-  name: "abrclick_set_env",
-  description: "Set Abrclick app environment variables",
+  name: "sakoocloud_set_env",
+  description: "Set SakooCloud app environment variables",
   inputSchema: {
     app_id: z.string(),
     vars: z.array(z.object({
@@ -494,8 +494,8 @@ const setEnv: ToolDefinition = {
 };
 
 const deleteEnvVar: ToolDefinition = {
-  name: "abrclick_delete_env_var",
-  description: "Delete an Abrclick app environment variable",
+  name: "sakoocloud_delete_env_var",
+  description: "Delete an SakooCloud app environment variable",
   inputSchema: {
     app_id: z.string(),
     key: z.string(),
@@ -508,8 +508,8 @@ const deleteEnvVar: ToolDefinition = {
 
 // DB links
 const getAppLinks: ToolDefinition = {
-  name: "abrclick_get_app_links",
-  description: "Get Abrclick app database links",
+  name: "sakoocloud_get_app_links",
+  description: "Get SakooCloud app database links",
   inputSchema: {
     app_id: z.string(),
   },
@@ -520,8 +520,8 @@ const getAppLinks: ToolDefinition = {
 };
 
 const linkDb: ToolDefinition = {
-  name: "abrclick_link_db",
-  description: "Link an Abrclick database to an app",
+  name: "sakoocloud_link_db",
+  description: "Link an SakooCloud database to an app",
   inputSchema: {
     app_id: z.string(),
     database_id: z.string(),
@@ -533,8 +533,8 @@ const linkDb: ToolDefinition = {
 };
 
 const unlinkDb: ToolDefinition = {
-  name: "abrclick_unlink_db",
-  description: "Unlink an Abrclick database from an app",
+  name: "sakoocloud_unlink_db",
+  description: "Unlink an SakooCloud database from an app",
   inputSchema: {
     app_id: z.string(),
     link_id: z.string(),
@@ -547,8 +547,8 @@ const unlinkDb: ToolDefinition = {
 
 // Domains
 const listDomains: ToolDefinition = {
-  name: "abrclick_list_domains",
-  description: "List Abrclick app custom domains",
+  name: "sakoocloud_list_domains",
+  description: "List SakooCloud app custom domains",
   inputSchema: {
     app_id: z.string(),
   },
@@ -559,8 +559,8 @@ const listDomains: ToolDefinition = {
 };
 
 const addDomain: ToolDefinition = {
-  name: "abrclick_add_domain",
-  description: "Add a custom domain to an Abrclick app",
+  name: "sakoocloud_add_domain",
+  description: "Add a custom domain to an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
     domain: z.string(),
@@ -571,8 +571,8 @@ const addDomain: ToolDefinition = {
 };
 
 const verifyDomain: ToolDefinition = {
-  name: "abrclick_verify_domain",
-  description: "Verify a custom domain for an Abrclick app",
+  name: "sakoocloud_verify_domain",
+  description: "Verify a custom domain for an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
     domain_id: z.string(),
@@ -583,8 +583,8 @@ const verifyDomain: ToolDefinition = {
 };
 
 const removeDomain: ToolDefinition = {
-  name: "abrclick_remove_domain",
-  description: "Remove a custom domain from an Abrclick app",
+  name: "sakoocloud_remove_domain",
+  description: "Remove a custom domain from an SakooCloud app",
   inputSchema: {
     app_id: z.string(),
     domain_id: z.string(),
@@ -596,7 +596,7 @@ const removeDomain: ToolDefinition = {
 };
 
 const uploadCert: ToolDefinition = {
-  name: "abrclick_upload_cert",
+  name: "sakoocloud_upload_cert",
   description:
     "Upload a custom TLS certificate (PEM cert + private key) for a domain, instead of using auto-issued Let's Encrypt. Treat the key as a secret.",
   inputSchema: {
@@ -616,23 +616,23 @@ const uploadCert: ToolDefinition = {
 
 // GitHub app (repo access for git deploys — NOT sign-in)
 const getGithubInstallUrl: ToolDefinition = {
-  name: "abrclick_get_github_install_url",
+  name: "sakoocloud_get_github_install_url",
   description:
-    "Get the URL to install/authorize the Abrclick GitHub app (grants repo access for git deploys). The human opens it in a browser.",
+    "Get the URL to install/authorize the SakooCloud GitHub app (grants repo access for git deploys). The human opens it in a browser.",
   inputSchema: {},
   handler: async (client) => client.getGithubInstallUrl(),
 };
 
 const listGithubRepos: ToolDefinition = {
-  name: "abrclick_list_github_repos",
-  description: "List GitHub repositories the Abrclick GitHub app can access (for git deploys)",
+  name: "sakoocloud_list_github_repos",
+  description: "List GitHub repositories the SakooCloud GitHub app can access (for git deploys)",
   inputSchema: {},
   handler: async (client) => client.listGithubRepos(),
 };
 
 const githubDisconnect: ToolDefinition = {
-  name: "abrclick_github_disconnect",
-  description: "Disconnect the Abrclick GitHub app integration",
+  name: "sakoocloud_github_disconnect",
+  description: "Disconnect the SakooCloud GitHub app integration",
   inputSchema: {},
   handler: async (client) => {
     await client.githubDisconnect();
@@ -642,8 +642,8 @@ const githubDisconnect: ToolDefinition = {
 
 // Databases
 const listDatabases: ToolDefinition = {
-  name: "abrclick_list_databases",
-  description: "List Abrclick databases (optionally filtered by project)",
+  name: "sakoocloud_list_databases",
+  description: "List SakooCloud databases (optionally filtered by project)",
   inputSchema: {
     project_id: z.string().optional(),
     page: z.number().optional(),
@@ -658,16 +658,16 @@ const listDatabases: ToolDefinition = {
 };
 
 const getDatabaseVersions: ToolDefinition = {
-  name: "abrclick_get_database_versions",
-  description: "Get available Abrclick database engine versions",
+  name: "sakoocloud_get_database_versions",
+  description: "Get available SakooCloud database engine versions",
   inputSchema: {},
   handler: async (client) => client.getDatabaseVersions(),
 };
 
 const createDatabase: ToolDefinition = {
-  name: "abrclick_create_database",
+  name: "sakoocloud_create_database",
   description:
-    "Create a new Abrclick database. cpu_limit/memory_limit MUST be a matching pair from a defined instance tier — call abrclick_get_tiers with type='database' and use one tier's exact cpu/mem. Never invent custom values; off-tier sizes are rejected. Omit both to get the smallest tier default.",
+    "Create a new SakooCloud database. cpu_limit/memory_limit MUST be a matching pair from a defined instance tier — call sakoocloud_get_tiers with type='database' and use one tier's exact cpu/mem. Never invent custom values; off-tier sizes are rejected. Omit both to get the smallest tier default.",
   inputSchema: {
     project_id: z.string(),
     name: z.string(),
@@ -677,11 +677,11 @@ const createDatabase: ToolDefinition = {
     cpu_limit: z
       .string()
       .optional()
-      .describe("Must equal a tier's cpu from abrclick_get_tiers(type='database'). Pair with the SAME tier's memory_limit."),
+      .describe("Must equal a tier's cpu from sakoocloud_get_tiers(type='database'). Pair with the SAME tier's memory_limit."),
     memory_limit: z
       .string()
       .optional()
-      .describe("Must equal the SAME tier's mem from abrclick_get_tiers(type='database'). Pair with that tier's cpu_limit."),
+      .describe("Must equal the SAME tier's mem from sakoocloud_get_tiers(type='database'). Pair with that tier's cpu_limit."),
     replica_set: z.boolean().optional(),
   },
   handler: async (client, args) => {
@@ -700,8 +700,8 @@ const createDatabase: ToolDefinition = {
 };
 
 const getDatabase: ToolDefinition = {
-  name: "abrclick_get_database",
-  description: "Get Abrclick database details by ID",
+  name: "sakoocloud_get_database",
+  description: "Get SakooCloud database details by ID",
   inputSchema: {
     db_id: z.string(),
   },
@@ -709,8 +709,8 @@ const getDatabase: ToolDefinition = {
 };
 
 const updateDatabase: ToolDefinition = {
-  name: "abrclick_update_database",
-  description: "Update an Abrclick database configuration",
+  name: "sakoocloud_update_database",
+  description: "Update an SakooCloud database configuration",
   inputSchema: {
     db_id: z.string(),
     storage_gb: z.number().optional(),
@@ -724,8 +724,8 @@ const updateDatabase: ToolDefinition = {
 };
 
 const deleteDatabase: ToolDefinition = {
-  name: "abrclick_delete_database",
-  description: "Delete an Abrclick database",
+  name: "sakoocloud_delete_database",
+  description: "Delete an SakooCloud database",
   inputSchema: {
     db_id: z.string(),
   },
@@ -736,8 +736,8 @@ const deleteDatabase: ToolDefinition = {
 };
 
 const enableDbPublicAccess: ToolDefinition = {
-  name: "abrclick_enable_db_public_access",
-  description: "Enable public internet access for an Abrclick database",
+  name: "sakoocloud_enable_db_public_access",
+  description: "Enable public internet access for an SakooCloud database",
   inputSchema: {
     db_id: z.string(),
   },
@@ -745,8 +745,8 @@ const enableDbPublicAccess: ToolDefinition = {
 };
 
 const disableDbPublicAccess: ToolDefinition = {
-  name: "abrclick_disable_db_public_access",
-  description: "Disable public internet access for an Abrclick database",
+  name: "sakoocloud_disable_db_public_access",
+  description: "Disable public internet access for an SakooCloud database",
   inputSchema: {
     db_id: z.string(),
   },
@@ -757,8 +757,8 @@ const disableDbPublicAccess: ToolDefinition = {
 };
 
 const getDatabaseLogs: ToolDefinition = {
-  name: "abrclick_get_database_logs",
-  description: "Get Abrclick database logs",
+  name: "sakoocloud_get_database_logs",
+  description: "Get SakooCloud database logs",
   inputSchema: {
     db_id: z.string(),
     cursor: z.number().optional(),
@@ -770,8 +770,8 @@ const getDatabaseLogs: ToolDefinition = {
 
 // Backups
 const listBackups: ToolDefinition = {
-  name: "abrclick_list_backups",
-  description: "List Abrclick database backups",
+  name: "sakoocloud_list_backups",
+  description: "List SakooCloud database backups",
   inputSchema: {
     db_id: z.string(),
   },
@@ -782,8 +782,8 @@ const listBackups: ToolDefinition = {
 };
 
 const createBackup: ToolDefinition = {
-  name: "abrclick_create_backup",
-  description: "Create an Abrclick database backup",
+  name: "sakoocloud_create_backup",
+  description: "Create an SakooCloud database backup",
   inputSchema: {
     db_id: z.string(),
   },
@@ -791,8 +791,8 @@ const createBackup: ToolDefinition = {
 };
 
 const restoreBackup: ToolDefinition = {
-  name: "abrclick_restore_backup",
-  description: "Restore an Abrclick database from a backup",
+  name: "sakoocloud_restore_backup",
+  description: "Restore an SakooCloud database from a backup",
   inputSchema: {
     db_id: z.string(),
     backup_id: z.string(),
@@ -803,9 +803,9 @@ const restoreBackup: ToolDefinition = {
 };
 
 const setBackupSchedule: ToolDefinition = {
-  name: "abrclick_set_backup_schedule",
+  name: "sakoocloud_set_backup_schedule",
   description:
-    "Set or clear an Abrclick database's automatic backup schedule. schedule is a cron expression (e.g. '0 3 * * *'), or null to disable.",
+    "Set or clear an SakooCloud database's automatic backup schedule. schedule is a cron expression (e.g. '0 3 * * *'), or null to disable.",
   inputSchema: {
     db_id: z.string(),
     schedule: z.string().nullable(),
@@ -816,7 +816,7 @@ const setBackupSchedule: ToolDefinition = {
 };
 
 const cloneBackup: ToolDefinition = {
-  name: "abrclick_clone_backup",
+  name: "sakoocloud_clone_backup",
   description:
     "Clone a backup into a brand-new database (non-destructive — the original is untouched). Useful to spin up a copy for testing.",
   inputSchema: {
@@ -841,8 +841,8 @@ const cloneBackup: ToolDefinition = {
 };
 
 const deleteBackup: ToolDefinition = {
-  name: "abrclick_delete_backup",
-  description: "Delete an Abrclick database backup (DESTRUCTIVE — the snapshot is gone)",
+  name: "sakoocloud_delete_backup",
+  description: "Delete an SakooCloud database backup (DESTRUCTIVE — the snapshot is gone)",
   inputSchema: {
     db_id: z.string(),
     backup_id: z.string(),
@@ -855,8 +855,8 @@ const deleteBackup: ToolDefinition = {
 
 // DNS
 const listDnsZones: ToolDefinition = {
-  name: "abrclick_list_dns_zones",
-  description: "List Abrclick DNS zones",
+  name: "sakoocloud_list_dns_zones",
+  description: "List SakooCloud DNS zones",
   inputSchema: {},
   handler: async (client) => {
     const zones = await client.getDnsZones();
@@ -865,8 +865,8 @@ const listDnsZones: ToolDefinition = {
 };
 
 const createDnsZone: ToolDefinition = {
-  name: "abrclick_create_dns_zone",
-  description: "Create an Abrclick DNS zone for a domain (returns nameservers to set at the registrar)",
+  name: "sakoocloud_create_dns_zone",
+  description: "Create an SakooCloud DNS zone for a domain (returns nameservers to set at the registrar)",
   inputSchema: {
     name: z.string(),
   },
@@ -874,8 +874,8 @@ const createDnsZone: ToolDefinition = {
 };
 
 const verifyDnsZone: ToolDefinition = {
-  name: "abrclick_verify_dns_zone",
-  description: "Verify an Abrclick DNS zone's nameserver delegation is live",
+  name: "sakoocloud_verify_dns_zone",
+  description: "Verify an SakooCloud DNS zone's nameserver delegation is live",
   inputSchema: {
     zone_id: z.string(),
   },
@@ -883,8 +883,8 @@ const verifyDnsZone: ToolDefinition = {
 };
 
 const deleteDnsZone: ToolDefinition = {
-  name: "abrclick_delete_dns_zone",
-  description: "Delete an Abrclick DNS zone and all its records (DESTRUCTIVE)",
+  name: "sakoocloud_delete_dns_zone",
+  description: "Delete an SakooCloud DNS zone and all its records (DESTRUCTIVE)",
   inputSchema: {
     zone_id: z.string(),
   },
@@ -895,8 +895,8 @@ const deleteDnsZone: ToolDefinition = {
 };
 
 const listDnsRecords: ToolDefinition = {
-  name: "abrclick_list_dns_records",
-  description: "List Abrclick DNS records for a zone",
+  name: "sakoocloud_list_dns_records",
+  description: "List SakooCloud DNS records for a zone",
   inputSchema: {
     zone_id: z.string(),
   },
@@ -907,8 +907,8 @@ const listDnsRecords: ToolDefinition = {
 };
 
 const upsertDnsRecord: ToolDefinition = {
-  name: "abrclick_upsert_dns_record",
-  description: "Create or update an Abrclick DNS record",
+  name: "sakoocloud_upsert_dns_record",
+  description: "Create or update an SakooCloud DNS record",
   inputSchema: {
     zone_id: z.string(),
     name: z.string(),
@@ -929,8 +929,8 @@ const upsertDnsRecord: ToolDefinition = {
 };
 
 const deleteDnsRecord: ToolDefinition = {
-  name: "abrclick_delete_dns_record",
-  description: "Delete an Abrclick DNS record",
+  name: "sakoocloud_delete_dns_record",
+  description: "Delete an SakooCloud DNS record",
   inputSchema: {
     zone_id: z.string(),
     name: z.string(),
@@ -949,8 +949,8 @@ const deleteDnsRecord: ToolDefinition = {
 
 // Templates
 const listTemplates: ToolDefinition = {
-  name: "abrclick_list_templates",
-  description: "List Abrclick one-click app templates (WordPress, n8n, Ghost, etc.)",
+  name: "sakoocloud_list_templates",
+  description: "List SakooCloud one-click app templates (WordPress, n8n, Ghost, etc.)",
   inputSchema: {},
   handler: async (client) => {
     const templates = await client.getTemplates();
@@ -959,8 +959,8 @@ const listTemplates: ToolDefinition = {
 };
 
 const getTemplate: ToolDefinition = {
-  name: "abrclick_get_template",
-  description: "Get an Abrclick one-click template's details and required variables by slug",
+  name: "sakoocloud_get_template",
+  description: "Get an SakooCloud one-click template's details and required variables by slug",
   inputSchema: {
     slug: z.string(),
   },
@@ -968,16 +968,16 @@ const getTemplate: ToolDefinition = {
 };
 
 const deployTemplate: ToolDefinition = {
-  name: "abrclick_deploy_template",
+  name: "sakoocloud_deploy_template",
   description:
-    "Deploy an Abrclick one-click app template. If you override sizing, app_cpu/app_memory must be a matching pair from abrclick_get_tiers(type='app') and db_cpu/db_memory a pair from abrclick_get_tiers(type='database'). Never invent custom values — off-tier overrides are rejected. Omit them to use the template's declared defaults.",
+    "Deploy an SakooCloud one-click app template. If you override sizing, app_cpu/app_memory must be a matching pair from sakoocloud_get_tiers(type='app') and db_cpu/db_memory a pair from sakoocloud_get_tiers(type='database'). Never invent custom values — off-tier overrides are rejected. Omit them to use the template's declared defaults.",
   inputSchema: {
     slug: z.string(),
     project_id: z.string(),
     app_name: z.string(),
-    app_cpu: z.string().optional().describe("Override: must equal a tier's cpu from abrclick_get_tiers(type='app'), paired with app_memory."),
+    app_cpu: z.string().optional().describe("Override: must equal a tier's cpu from sakoocloud_get_tiers(type='app'), paired with app_memory."),
     app_memory: z.string().optional().describe("Override: must equal the SAME app tier's mem, paired with app_cpu."),
-    db_cpu: z.string().optional().describe("Override: must equal a tier's cpu from abrclick_get_tiers(type='database'), paired with db_memory."),
+    db_cpu: z.string().optional().describe("Override: must equal a tier's cpu from sakoocloud_get_tiers(type='database'), paired with db_memory."),
     db_memory: z.string().optional().describe("Override: must equal the SAME db tier's mem, paired with db_cpu."),
     variables: z.record(z.string()).optional(),
   },
@@ -997,8 +997,8 @@ const deployTemplate: ToolDefinition = {
 };
 
 const getTemplateDeployment: ToolDefinition = {
-  name: "abrclick_get_template_deployment",
-  description: "Get Abrclick template deployment status by ID",
+  name: "sakoocloud_get_template_deployment",
+  description: "Get SakooCloud template deployment status by ID",
   inputSchema: {
     id: z.string(),
   },
@@ -1007,8 +1007,8 @@ const getTemplateDeployment: ToolDefinition = {
 
 // Metrics
 const getAppMetrics: ToolDefinition = {
-  name: "abrclick_get_app_metrics",
-  description: "Get Abrclick app resource metrics",
+  name: "sakoocloud_get_app_metrics",
+  description: "Get SakooCloud app resource metrics",
   inputSchema: {
     app_id: z.string(),
     range: z.string().optional(),
@@ -1019,8 +1019,8 @@ const getAppMetrics: ToolDefinition = {
 };
 
 const getDatabaseMetrics: ToolDefinition = {
-  name: "abrclick_get_database_metrics",
-  description: "Get Abrclick database resource metrics",
+  name: "sakoocloud_get_database_metrics",
+  description: "Get SakooCloud database resource metrics",
   inputSchema: {
     db_id: z.string(),
     range: z.string().optional(),
@@ -1032,7 +1032,7 @@ const getDatabaseMetrics: ToolDefinition = {
 
 // Resource sizing tiers
 const getTiers: ToolDefinition = {
-  name: "abrclick_get_tiers",
+  name: "sakoocloud_get_tiers",
   description:
     "Get the available resource sizing tiers (CPU/memory presets) for apps or databases. Use before create/update to pick valid cpu_limit/memory_limit values.",
   inputSchema: {
@@ -1044,8 +1044,8 @@ const getTiers: ToolDefinition = {
 // Billing (READ-ONLY — plan changes, add-on purchases, and wallet top-ups are intentionally
 // NOT exposed to AI tools; send the human to the dashboard for those).
 const getUsage: ToolDefinition = {
-  name: "abrclick_get_usage",
-  description: "Get Abrclick resource usage (optionally for a project)",
+  name: "sakoocloud_get_usage",
+  description: "Get SakooCloud resource usage (optionally for a project)",
   inputSchema: {
     project_id: z.string().optional(),
   },
@@ -1053,15 +1053,15 @@ const getUsage: ToolDefinition = {
 };
 
 const getPlans: ToolDefinition = {
-  name: "abrclick_get_plans",
-  description: "Get available Abrclick billing plans (planet tiers) and their prices in Toman",
+  name: "sakoocloud_get_plans",
+  description: "Get available SakooCloud billing plans (planet tiers) and their prices in Toman",
   inputSchema: {},
   handler: async (client) => client.getPlans(),
 };
 
 const getInvoices: ToolDefinition = {
-  name: "abrclick_get_invoices",
-  description: "List Abrclick invoices (read-only)",
+  name: "sakoocloud_get_invoices",
+  description: "List SakooCloud invoices (read-only)",
   inputSchema: {
     page: z.number().optional(),
     limit: z.number().optional(),
@@ -1070,14 +1070,14 @@ const getInvoices: ToolDefinition = {
 };
 
 const getAddons: ToolDefinition = {
-  name: "abrclick_get_addons",
-  description: "List the Abrclick add-ons available for purchase (read-only)",
+  name: "sakoocloud_get_addons",
+  description: "List the SakooCloud add-ons available for purchase (read-only)",
   inputSchema: {},
   handler: async (client) => client.getAddons(),
 };
 
 const getMyAddons: ToolDefinition = {
-  name: "abrclick_get_my_addons",
+  name: "sakoocloud_get_my_addons",
   description: "List the add-ons the current account has purchased (read-only)",
   inputSchema: {
     page: z.number().optional(),
@@ -1087,15 +1087,15 @@ const getMyAddons: ToolDefinition = {
 };
 
 const getWallet: ToolDefinition = {
-  name: "abrclick_get_wallet",
-  description: "Get Abrclick wallet balance and information (read-only)",
+  name: "sakoocloud_get_wallet",
+  description: "Get SakooCloud wallet balance and information (read-only)",
   inputSchema: {},
   handler: async (client) => client.getWallet(),
 };
 
 const getWalletTransactions: ToolDefinition = {
-  name: "abrclick_get_wallet_transactions",
-  description: "List Abrclick wallet transactions (read-only)",
+  name: "sakoocloud_get_wallet_transactions",
+  description: "List SakooCloud wallet transactions (read-only)",
   inputSchema: {
     limit: z.number().optional(),
     offset: z.number().optional(),
@@ -1105,7 +1105,7 @@ const getWalletTransactions: ToolDefinition = {
 };
 
 const getAgentUsage: ToolDefinition = {
-  name: "abrclick_get_agent_usage",
+  name: "sakoocloud_get_agent_usage",
   description: "Get metered AI-agent token usage for the account (read-only). period: day|week|month.",
   inputSchema: {
     period: z.string().optional(),
@@ -1115,8 +1115,8 @@ const getAgentUsage: ToolDefinition = {
 
 // Alert rules (auto-alerts on CPU/memory/disk/connection thresholds)
 const listAlertRules: ToolDefinition = {
-  name: "abrclick_list_alert_rules",
-  description: "List Abrclick alert rules for apps and databases",
+  name: "sakoocloud_list_alert_rules",
+  description: "List SakooCloud alert rules for apps and databases",
   inputSchema: {},
   handler: async (client) => {
     // `/alert-rules` became paginated (`{ data, total, page, limit }`). The pinned SDK still
@@ -1129,7 +1129,7 @@ const listAlertRules: ToolDefinition = {
 };
 
 const createAlertRule: ToolDefinition = {
-  name: "abrclick_create_alert_rule",
+  name: "sakoocloud_create_alert_rule",
   description:
     "Create an alert rule that notifies you when a metric crosses a threshold (e.g. CPU > 80% for 5 minutes).",
   inputSchema: {
@@ -1154,8 +1154,8 @@ const createAlertRule: ToolDefinition = {
 };
 
 const toggleAlertRule: ToolDefinition = {
-  name: "abrclick_toggle_alert_rule",
-  description: "Enable or disable an Abrclick alert rule",
+  name: "sakoocloud_toggle_alert_rule",
+  description: "Enable or disable an SakooCloud alert rule",
   inputSchema: {
     rule_id: z.string(),
     enabled: z.boolean(),
@@ -1165,8 +1165,8 @@ const toggleAlertRule: ToolDefinition = {
 };
 
 const deleteAlertRule: ToolDefinition = {
-  name: "abrclick_delete_alert_rule",
-  description: "Delete an Abrclick alert rule",
+  name: "sakoocloud_delete_alert_rule",
+  description: "Delete an SakooCloud alert rule",
   inputSchema: {
     rule_id: z.string(),
   },
@@ -1178,8 +1178,8 @@ const deleteAlertRule: ToolDefinition = {
 
 // Notifications
 const getNotifications: ToolDefinition = {
-  name: "abrclick_get_notifications",
-  description: "Get Abrclick notifications (optionally unread only)",
+  name: "sakoocloud_get_notifications",
+  description: "Get SakooCloud notifications (optionally unread only)",
   inputSchema: {
     unread_only: z.boolean().optional(),
   },
@@ -1190,8 +1190,8 @@ const getNotifications: ToolDefinition = {
 };
 
 const getUnreadCount: ToolDefinition = {
-  name: "abrclick_get_unread_count",
-  description: "Get the number of unread Abrclick notifications",
+  name: "sakoocloud_get_unread_count",
+  description: "Get the number of unread SakooCloud notifications",
   inputSchema: {},
   handler: async (client) => {
     const count = await client.getUnreadCount();
@@ -1200,8 +1200,8 @@ const getUnreadCount: ToolDefinition = {
 };
 
 const markNotificationRead: ToolDefinition = {
-  name: "abrclick_mark_notification_read",
-  description: "Mark a single Abrclick notification as read",
+  name: "sakoocloud_mark_notification_read",
+  description: "Mark a single SakooCloud notification as read",
   inputSchema: {
     id: z.string(),
   },
@@ -1209,8 +1209,8 @@ const markNotificationRead: ToolDefinition = {
 };
 
 const markAllNotificationsRead: ToolDefinition = {
-  name: "abrclick_mark_all_notifications_read",
-  description: "Mark all Abrclick notifications as read",
+  name: "sakoocloud_mark_all_notifications_read",
+  description: "Mark all SakooCloud notifications as read",
   inputSchema: {},
   handler: async (client) => {
     await client.markAllNotificationsRead();
@@ -1220,8 +1220,8 @@ const markAllNotificationsRead: ToolDefinition = {
 
 // Tasks (per-project kanban)
 const listTasks: ToolDefinition = {
-  name: "abrclick_list_tasks",
-  description: "List the kanban tasks of an Abrclick project",
+  name: "sakoocloud_list_tasks",
+  description: "List the kanban tasks of an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
   },
@@ -1232,8 +1232,8 @@ const listTasks: ToolDefinition = {
 };
 
 const createTask: ToolDefinition = {
-  name: "abrclick_create_task",
-  description: "Create a kanban task in an Abrclick project",
+  name: "sakoocloud_create_task",
+  description: "Create a kanban task in an SakooCloud project",
   inputSchema: {
     project_id: z.string(),
     title: z.string(),
@@ -1259,7 +1259,7 @@ const createTask: ToolDefinition = {
 };
 
 const updateTask: ToolDefinition = {
-  name: "abrclick_update_task",
+  name: "sakoocloud_update_task",
   description: "Update a kanban task (title, status, priority, etc.)",
   inputSchema: {
     task_id: z.string(),
@@ -1288,8 +1288,8 @@ const updateTask: ToolDefinition = {
 };
 
 const deleteTask: ToolDefinition = {
-  name: "abrclick_delete_task",
-  description: "Delete a kanban task from an Abrclick project",
+  name: "sakoocloud_delete_task",
+  description: "Delete a kanban task from an SakooCloud project",
   inputSchema: {
     task_id: z.string(),
   },
@@ -1301,21 +1301,21 @@ const deleteTask: ToolDefinition = {
 
 // ---- Object Storage (buckets) ----
 const listAllBuckets: ToolDefinition = {
-  name: "abrclick_list_all_buckets",
+  name: "sakoocloud_list_all_buckets",
   description: "List all object-storage buckets across every project for the authenticated user",
   inputSchema: {},
   handler: async (client) => client.getAllBuckets(),
 };
 
 const listBuckets: ToolDefinition = {
-  name: "abrclick_list_buckets",
+  name: "sakoocloud_list_buckets",
   description: "List object-storage (S3) buckets in a project",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getBuckets(args.project_id as string),
 };
 
 const createBucket: ToolDefinition = {
-  name: "abrclick_create_bucket",
+  name: "sakoocloud_create_bucket",
   description: "Create an S3-compatible object-storage bucket. sizeGb must be a fixed step (10GB free).",
   inputSchema: {
     project_id: z.string(),
@@ -1332,14 +1332,14 @@ const createBucket: ToolDefinition = {
 };
 
 const getBucket: ToolDefinition = {
-  name: "abrclick_get_bucket",
+  name: "sakoocloud_get_bucket",
   description: "Get an object-storage bucket by ID",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => client.getBucket(args.bucket_id as string),
 };
 
 const updateBucket: ToolDefinition = {
-  name: "abrclick_update_bucket",
+  name: "sakoocloud_update_bucket",
   description: "Update a bucket (resize sizeGb — grow-only steps — or toggle public read)",
   inputSchema: {
     bucket_id: z.string(),
@@ -1353,7 +1353,7 @@ const updateBucket: ToolDefinition = {
 };
 
 const deleteBucket: ToolDefinition = {
-  name: "abrclick_delete_bucket",
+  name: "sakoocloud_delete_bucket",
   description: "Delete a bucket (DESTRUCTIVE — removes the bucket and all its objects)",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => {
@@ -1363,7 +1363,7 @@ const deleteBucket: ToolDefinition = {
 };
 
 const listBucketObjects: ToolDefinition = {
-  name: "abrclick_list_bucket_objects",
+  name: "sakoocloud_list_bucket_objects",
   description: "List objects in a bucket (optionally filtered by prefix; delimiter for folder view)",
   inputSchema: {
     bucket_id: z.string(),
@@ -1378,14 +1378,14 @@ const listBucketObjects: ToolDefinition = {
 };
 
 const getBucketObjectDownloadUrl: ToolDefinition = {
-  name: "abrclick_get_bucket_object_download_url",
+  name: "sakoocloud_get_bucket_object_download_url",
   description: "Get a presigned download URL for a single object by key",
   inputSchema: { bucket_id: z.string(), key: z.string() },
   handler: async (client, args) => client.getBucketObjectDownloadUrl(args.bucket_id as string, args.key as string),
 };
 
 const deleteBucketObject: ToolDefinition = {
-  name: "abrclick_delete_bucket_object",
+  name: "sakoocloud_delete_bucket_object",
   description: "Delete a single object from a bucket by key (DESTRUCTIVE)",
   inputSchema: { bucket_id: z.string(), key: z.string() },
   handler: async (client, args) => {
@@ -1395,7 +1395,7 @@ const deleteBucketObject: ToolDefinition = {
 };
 
 const createBucketFolder: ToolDefinition = {
-  name: "abrclick_create_bucket_folder",
+  name: "sakoocloud_create_bucket_folder",
   description: "Create an empty folder (zero-byte prefix marker) in a bucket",
   inputSchema: {
     bucket_id: z.string(),
@@ -1407,14 +1407,14 @@ const createBucketFolder: ToolDefinition = {
 };
 
 const getBucketCors: ToolDefinition = {
-  name: "abrclick_get_bucket_cors",
+  name: "sakoocloud_get_bucket_cors",
   description: "Get a bucket's CORS rules",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => client.getBucketCors(args.bucket_id as string),
 };
 
 const putBucketCors: ToolDefinition = {
-  name: "abrclick_put_bucket_cors",
+  name: "sakoocloud_put_bucket_cors",
   description: "Replace a bucket's CORS rules (max 100 rules)",
   inputSchema: {
     bucket_id: z.string(),
@@ -1434,7 +1434,7 @@ const putBucketCors: ToolDefinition = {
 };
 
 const deleteBucketCors: ToolDefinition = {
-  name: "abrclick_delete_bucket_cors",
+  name: "sakoocloud_delete_bucket_cors",
   description: "Delete all CORS rules from a bucket",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => {
@@ -1444,28 +1444,28 @@ const deleteBucketCors: ToolDefinition = {
 };
 
 const getBucketVersioning: ToolDefinition = {
-  name: "abrclick_get_bucket_versioning",
+  name: "sakoocloud_get_bucket_versioning",
   description: "Get a bucket's versioning state",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => client.getBucketVersioning(args.bucket_id as string),
 };
 
 const putBucketVersioning: ToolDefinition = {
-  name: "abrclick_put_bucket_versioning",
+  name: "sakoocloud_put_bucket_versioning",
   description: "Enable or disable object versioning on a bucket",
   inputSchema: { bucket_id: z.string(), enabled: z.boolean() },
   handler: async (client, args) => client.putBucketVersioning(args.bucket_id as string, args.enabled as boolean),
 };
 
 const getBucketLifecycle: ToolDefinition = {
-  name: "abrclick_get_bucket_lifecycle",
+  name: "sakoocloud_get_bucket_lifecycle",
   description: "Get a bucket's lifecycle rules",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => client.getBucketLifecycle(args.bucket_id as string),
 };
 
 const putBucketLifecycle: ToolDefinition = {
-  name: "abrclick_put_bucket_lifecycle",
+  name: "sakoocloud_put_bucket_lifecycle",
   description: "Replace a bucket's lifecycle rules (object expiration, noncurrent-version cleanup, multipart abort)",
   inputSchema: {
     bucket_id: z.string(),
@@ -1487,7 +1487,7 @@ const putBucketLifecycle: ToolDefinition = {
 };
 
 const deleteBucketLifecycle: ToolDefinition = {
-  name: "abrclick_delete_bucket_lifecycle",
+  name: "sakoocloud_delete_bucket_lifecycle",
   description: "Delete all lifecycle rules from a bucket",
   inputSchema: { bucket_id: z.string() },
   handler: async (client, args) => {
@@ -1498,21 +1498,21 @@ const deleteBucketLifecycle: ToolDefinition = {
 
 // ---- Container Registry ----
 const listAllRegistries: ToolDefinition = {
-  name: "abrclick_list_all_registries",
+  name: "sakoocloud_list_all_registries",
   description: "List all container registries across every project for the authenticated user",
   inputSchema: {},
   handler: async (client) => client.getAllRegistries(),
 };
 
 const listRegistries: ToolDefinition = {
-  name: "abrclick_list_registries",
+  name: "sakoocloud_list_registries",
   description: "List container (Docker/OCI) registries in a project",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getRegistries(args.project_id as string),
 };
 
 const createRegistry: ToolDefinition = {
-  name: "abrclick_create_registry",
+  name: "sakoocloud_create_registry",
   description: "Create a private container registry. sizeGb must be a fixed step (1GB free).",
   inputSchema: {
     project_id: z.string(),
@@ -1527,14 +1527,14 @@ const createRegistry: ToolDefinition = {
 };
 
 const getRegistry: ToolDefinition = {
-  name: "abrclick_get_registry",
+  name: "sakoocloud_get_registry",
   description: "Get a container registry by ID",
   inputSchema: { registry_id: z.string() },
   handler: async (client, args) => client.getRegistry(args.registry_id as string),
 };
 
 const updateRegistry: ToolDefinition = {
-  name: "abrclick_update_registry",
+  name: "sakoocloud_update_registry",
   description: "Update a registry (resize sizeGb — grow-only steps — or toggle public pulls)",
   inputSchema: {
     registry_id: z.string(),
@@ -1548,14 +1548,14 @@ const updateRegistry: ToolDefinition = {
 };
 
 const listRegistryRepositories: ToolDefinition = {
-  name: "abrclick_list_registry_repositories",
+  name: "sakoocloud_list_registry_repositories",
   description: "List image repositories (and tags) inside a registry",
   inputSchema: { registry_id: z.string() },
   handler: async (client, args) => client.getRegistryRepositories(args.registry_id as string),
 };
 
 const deleteRegistry: ToolDefinition = {
-  name: "abrclick_delete_registry",
+  name: "sakoocloud_delete_registry",
   description: "Delete a container registry (DESTRUCTIVE — removes all images)",
   inputSchema: { registry_id: z.string() },
   handler: async (client, args) => {
@@ -1566,14 +1566,14 @@ const deleteRegistry: ToolDefinition = {
 
 // ---- Functions (FaaS) ----
 const listFunctions: ToolDefinition = {
-  name: "abrclick_list_functions",
+  name: "sakoocloud_list_functions",
   description: "List serverless functions in a project",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getFunctions(args.project_id as string),
 };
 
 const createFunction: ToolDefinition = {
-  name: "abrclick_create_function",
+  name: "sakoocloud_create_function",
   description: "Create a serverless function. Pass inline `code` (Node handler, max ~256KB) or upload later.",
   inputSchema: {
     project_id: z.string(),
@@ -1590,14 +1590,14 @@ const createFunction: ToolDefinition = {
 };
 
 const getFunction: ToolDefinition = {
-  name: "abrclick_get_function",
+  name: "sakoocloud_get_function",
   description: "Get a serverless function by ID",
   inputSchema: { function_id: z.string() },
   handler: async (client, args) => client.getFunction(args.function_id as string),
 };
 
 const updateFunction: ToolDefinition = {
-  name: "abrclick_update_function",
+  name: "sakoocloud_update_function",
   description: "Update a function's name, entry file, memory, or timeout",
   inputSchema: {
     function_id: z.string(),
@@ -1613,7 +1613,7 @@ const updateFunction: ToolDefinition = {
 };
 
 const deleteFunction: ToolDefinition = {
-  name: "abrclick_delete_function",
+  name: "sakoocloud_delete_function",
   description: "Delete a serverless function (DESTRUCTIVE)",
   inputSchema: { function_id: z.string() },
   handler: async (client, args) => {
@@ -1623,21 +1623,21 @@ const deleteFunction: ToolDefinition = {
 };
 
 const getFunctionSource: ToolDefinition = {
-  name: "abrclick_get_function_source",
+  name: "sakoocloud_get_function_source",
   description: "Get a function's current handler source code",
   inputSchema: { function_id: z.string() },
   handler: async (client, args) => client.getFunctionSource(args.function_id as string),
 };
 
 const redeployFunction: ToolDefinition = {
-  name: "abrclick_redeploy_function",
+  name: "sakoocloud_redeploy_function",
   description: "Redeploy a function with new inline handler source (max ~256KB)",
   inputSchema: { function_id: z.string(), code: z.string() },
   handler: async (client, args) => client.redeployFunction(args.function_id as string, args.code as string),
 };
 
 const getFunctionMetrics: ToolDefinition = {
-  name: "abrclick_get_function_metrics",
+  name: "sakoocloud_get_function_metrics",
   description: "Get invocation/latency metrics for a function",
   inputSchema: { function_id: z.string(), range: z.string().optional().describe("e.g. 1h, 24h, 7d") },
   handler: async (client, args) =>
@@ -1645,14 +1645,14 @@ const getFunctionMetrics: ToolDefinition = {
 };
 
 const listFunctionTriggers: ToolDefinition = {
-  name: "abrclick_list_function_triggers",
+  name: "sakoocloud_list_function_triggers",
   description: "List a function's triggers (http, cron, queue)",
   inputSchema: { function_id: z.string() },
   handler: async (client, args) => client.getFunctionTriggers(args.function_id as string),
 };
 
 const createFunctionTrigger: ToolDefinition = {
-  name: "abrclick_create_function_trigger",
+  name: "sakoocloud_create_function_trigger",
   description: "Add a trigger to a function. cronSchedule required when type=cron; queueRef required when type=queue.",
   inputSchema: {
     function_id: z.string(),
@@ -1668,7 +1668,7 @@ const createFunctionTrigger: ToolDefinition = {
 };
 
 const deleteFunctionTrigger: ToolDefinition = {
-  name: "abrclick_delete_function_trigger",
+  name: "sakoocloud_delete_function_trigger",
   description: "Delete a trigger from a function",
   inputSchema: { function_id: z.string(), trigger_id: z.string() },
   handler: async (client, args) => {
@@ -1679,14 +1679,14 @@ const deleteFunctionTrigger: ToolDefinition = {
 
 // ---- Cron jobs ----
 const listCrons: ToolDefinition = {
-  name: "abrclick_list_crons",
+  name: "sakoocloud_list_crons",
   description: "List scheduled cron jobs for an app",
   inputSchema: { app_id: z.string() },
   handler: async (client, args) => client.getCrons(args.app_id as string),
 };
 
 const createCron: ToolDefinition = {
-  name: "abrclick_create_cron",
+  name: "sakoocloud_create_cron",
   description: "Create a scheduled cron job that runs a command in an app's container",
   inputSchema: {
     appId: z.string(),
@@ -1700,14 +1700,14 @@ const createCron: ToolDefinition = {
 };
 
 const getCron: ToolDefinition = {
-  name: "abrclick_get_cron",
+  name: "sakoocloud_get_cron",
   description: "Get a cron job by ID",
   inputSchema: { cron_id: z.string() },
   handler: async (client, args) => client.getCron(args.cron_id as string),
 };
 
 const updateCron: ToolDefinition = {
-  name: "abrclick_update_cron",
+  name: "sakoocloud_update_cron",
   description: "Update a cron job (schedule, command, timezone, or enable/disable)",
   inputSchema: {
     cron_id: z.string(),
@@ -1724,7 +1724,7 @@ const updateCron: ToolDefinition = {
 };
 
 const deleteCron: ToolDefinition = {
-  name: "abrclick_delete_cron",
+  name: "sakoocloud_delete_cron",
   description: "Delete a cron job",
   inputSchema: { cron_id: z.string() },
   handler: async (client, args) => {
@@ -1734,21 +1734,21 @@ const deleteCron: ToolDefinition = {
 };
 
 const runCron: ToolDefinition = {
-  name: "abrclick_run_cron",
+  name: "sakoocloud_run_cron",
   description: "Trigger a cron job to run immediately (one-off, off-schedule)",
   inputSchema: { cron_id: z.string() },
   handler: async (client, args) => client.runCron(args.cron_id as string),
 };
 
 const getCronRuns: ToolDefinition = {
-  name: "abrclick_get_cron_runs",
+  name: "sakoocloud_get_cron_runs",
   description: "List a cron job's execution history",
   inputSchema: { cron_id: z.string() },
   handler: async (client, args) => client.getCronRuns(args.cron_id as string),
 };
 
 const getCronRunLogs: ToolDefinition = {
-  name: "abrclick_get_cron_run_logs",
+  name: "sakoocloud_get_cron_run_logs",
   description: "Get logs for a specific cron run",
   inputSchema: { cron_id: z.string(), job_name: z.string() },
   handler: async (client, args) => client.getCronRunLogs(args.cron_id as string, args.job_name as string),
@@ -1756,14 +1756,14 @@ const getCronRunLogs: ToolDefinition = {
 
 // ---- Persistent disks ----
 const listDisks: ToolDefinition = {
-  name: "abrclick_list_disks",
+  name: "sakoocloud_list_disks",
   description: "List persistent disks (volumes) in a project",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getDisks(args.project_id as string),
 };
 
 const createDisk: ToolDefinition = {
-  name: "abrclick_create_disk",
+  name: "sakoocloud_create_disk",
   description: "Create a persistent disk (volume). size_gb grows only afterwards.",
   inputSchema: {
     project_id: z.string(),
@@ -1778,14 +1778,14 @@ const createDisk: ToolDefinition = {
 };
 
 const getDisk: ToolDefinition = {
-  name: "abrclick_get_disk",
+  name: "sakoocloud_get_disk",
   description: "Get a persistent disk by ID",
   inputSchema: { disk_id: z.string() },
   handler: async (client, args) => client.getDisk(args.disk_id as string),
 };
 
 const updateDisk: ToolDefinition = {
-  name: "abrclick_update_disk",
+  name: "sakoocloud_update_disk",
   description: "Update a disk (grow size_gb — cannot shrink — or change mount path; redeploys the attached app)",
   inputSchema: {
     disk_id: z.string(),
@@ -1799,7 +1799,7 @@ const updateDisk: ToolDefinition = {
 };
 
 const attachDisk: ToolDefinition = {
-  name: "abrclick_attach_disk",
+  name: "sakoocloud_attach_disk",
   description: "Attach a disk to an app (one disk per app). Redeploys the app.",
   inputSchema: {
     disk_id: z.string(),
@@ -1813,14 +1813,14 @@ const attachDisk: ToolDefinition = {
 };
 
 const detachDisk: ToolDefinition = {
-  name: "abrclick_detach_disk",
+  name: "sakoocloud_detach_disk",
   description: "Detach a disk from its app. Redeploys the app.",
   inputSchema: { disk_id: z.string() },
   handler: async (client, args) => client.detachDisk(args.disk_id as string),
 };
 
 const deleteDisk: ToolDefinition = {
-  name: "abrclick_delete_disk",
+  name: "sakoocloud_delete_disk",
   description: "Delete a persistent disk (DESTRUCTIVE — must be detached first)",
   inputSchema: { disk_id: z.string() },
   handler: async (client, args) => {
@@ -1831,28 +1831,28 @@ const deleteDisk: ToolDefinition = {
 
 // ---- Disk backups ----
 const listDiskBackups: ToolDefinition = {
-  name: "abrclick_list_disk_backups",
+  name: "sakoocloud_list_disk_backups",
   description: "List backups (snapshots) of a persistent disk",
   inputSchema: { disk_id: z.string() },
   handler: async (client, args) => client.getDiskBackups(args.disk_id as string),
 };
 
 const createDiskBackup: ToolDefinition = {
-  name: "abrclick_create_disk_backup",
+  name: "sakoocloud_create_disk_backup",
   description: "Create a backup (tarball snapshot) of a persistent disk",
   inputSchema: { disk_id: z.string() },
   handler: async (client, args) => client.createDiskBackup(args.disk_id as string),
 };
 
 const getDiskBackupDownloadUrl: ToolDefinition = {
-  name: "abrclick_get_disk_backup_download_url",
+  name: "sakoocloud_get_disk_backup_download_url",
   description: "Get a presigned download URL for a disk backup tarball",
   inputSchema: { disk_id: z.string(), backup_id: z.string() },
   handler: async (client, args) => client.getDiskBackupDownloadUrl(args.disk_id as string, args.backup_id as string),
 };
 
 const presignDiskBackupRestore: ToolDefinition = {
-  name: "abrclick_presign_disk_backup_restore",
+  name: "sakoocloud_presign_disk_backup_restore",
   description: "Get a presigned PUT URL to upload a tarball for restoring into a disk. Returns the upload key.",
   inputSchema: {
     disk_id: z.string(),
@@ -1866,14 +1866,14 @@ const presignDiskBackupRestore: ToolDefinition = {
 };
 
 const restoreDiskBackup: ToolDefinition = {
-  name: "abrclick_restore_disk_backup",
+  name: "sakoocloud_restore_disk_backup",
   description: "Restore a previously-uploaded tarball into a detached, ready disk (use the key from presign)",
   inputSchema: { disk_id: z.string(), upload_key: z.string() },
   handler: async (client, args) => client.restoreDiskBackup(args.disk_id as string, args.upload_key as string),
 };
 
 const deleteDiskBackup: ToolDefinition = {
-  name: "abrclick_delete_disk_backup",
+  name: "sakoocloud_delete_disk_backup",
   description: "Delete a disk backup (row + S3 tarball)",
   inputSchema: { disk_id: z.string(), backup_id: z.string() },
   handler: async (client, args) => {
@@ -1884,14 +1884,14 @@ const deleteDiskBackup: ToolDefinition = {
 
 // ---- Secret manager ----
 const listProjectSecrets: ToolDefinition = {
-  name: "abrclick_list_project_secrets",
+  name: "sakoocloud_list_project_secrets",
   description: "List secrets in a project (registry credentials or key-value blobs; values are not returned)",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getProjectSecrets(args.project_id as string),
 };
 
 const createSecret: ToolDefinition = {
-  name: "abrclick_create_secret",
+  name: "sakoocloud_create_secret",
   description:
     "Create a project secret. type=registry → data {registry, username, password}; type=kv → arbitrary {KEY: value}.",
   inputSchema: {
@@ -1907,7 +1907,7 @@ const createSecret: ToolDefinition = {
 };
 
 const updateSecret: ToolDefinition = {
-  name: "abrclick_update_secret",
+  name: "sakoocloud_update_secret",
   description: "Replace a secret's data blob (same per-type shape as create)",
   inputSchema: {
     project_id: z.string(),
@@ -1919,7 +1919,7 @@ const updateSecret: ToolDefinition = {
 };
 
 const deleteSecret: ToolDefinition = {
-  name: "abrclick_delete_secret",
+  name: "sakoocloud_delete_secret",
   description: "Delete a project secret (DESTRUCTIVE)",
   inputSchema: { project_id: z.string(), secret_id: z.string() },
   handler: async (client, args) => {
@@ -1929,14 +1929,14 @@ const deleteSecret: ToolDefinition = {
 };
 
 const listAppSecrets: ToolDefinition = {
-  name: "abrclick_list_app_secrets",
+  name: "sakoocloud_list_app_secrets",
   description: "List secrets attached to an app",
   inputSchema: { app_id: z.string() },
   handler: async (client, args) => client.getAppSecrets(args.app_id as string),
 };
 
 const assignSecretToApp: ToolDefinition = {
-  name: "abrclick_assign_secret_to_app",
+  name: "sakoocloud_assign_secret_to_app",
   description: "Attach a project secret to an app. Redeploys the app.",
   inputSchema: { app_id: z.string(), secret_id: z.string() },
   handler: async (client, args) => {
@@ -1946,7 +1946,7 @@ const assignSecretToApp: ToolDefinition = {
 };
 
 const unassignSecretFromApp: ToolDefinition = {
-  name: "abrclick_unassign_secret_from_app",
+  name: "sakoocloud_unassign_secret_from_app",
   description: "Detach a secret from an app. Redeploys the app.",
   inputSchema: { app_id: z.string(), secret_id: z.string() },
   handler: async (client, args) => {
@@ -1957,14 +1957,14 @@ const unassignSecretFromApp: ToolDefinition = {
 
 // ---- Project-level env vars ----
 const getProjectEnv: ToolDefinition = {
-  name: "abrclick_get_project_env",
+  name: "sakoocloud_get_project_env",
   description: "Get project-wide environment variables (shared across all apps in the project)",
   inputSchema: { project_id: z.string() },
   handler: async (client, args) => client.getProjectEnv(args.project_id as string),
 };
 
 const setProjectEnv: ToolDefinition = {
-  name: "abrclick_set_project_env",
+  name: "sakoocloud_set_project_env",
   description: "Bulk upsert project-wide environment variables (shared across all apps)",
   inputSchema: {
     project_id: z.string(),
@@ -1982,7 +1982,7 @@ const setProjectEnv: ToolDefinition = {
 };
 
 const deleteProjectEnvVar: ToolDefinition = {
-  name: "abrclick_delete_project_env_var",
+  name: "sakoocloud_delete_project_env_var",
   description: "Delete a single project-wide environment variable by key",
   inputSchema: { project_id: z.string(), key: z.string() },
   handler: async (client, args) => {
@@ -1993,14 +1993,14 @@ const deleteProjectEnvVar: ToolDefinition = {
 
 // ---- API keys (require an admin-scoped key or a JWT session) ----
 const listApiKeys: ToolDefinition = {
-  name: "abrclick_list_api_keys",
+  name: "sakoocloud_list_api_keys",
   description: "List the authenticated user's API keys (metadata only — never the secret values)",
   inputSchema: {},
   handler: async (client) => client.getApiKeys(),
 };
 
 const revokeApiKey: ToolDefinition = {
-  name: "abrclick_revoke_api_key",
+  name: "sakoocloud_revoke_api_key",
   description: "Revoke (delete) an API key by ID (DESTRUCTIVE — the key stops working immediately)",
   inputSchema: { key_id: z.string() },
   handler: async (client, args) => {

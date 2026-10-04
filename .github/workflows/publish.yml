@@ -1,6 +1,6 @@
 name: Publish
 
-# Publishes @abrclick/ai to the public npm registry when a v* tag is pushed.
+# Publishes @sakoocloud/ai to the public npm registry when a v* tag is pushed.
 # Gate: typecheck + tests + tag-matches-version must pass before publish runs.
 # Requires repo secret NPM_TOKEN (an npm automation token with publish rights).
 on:

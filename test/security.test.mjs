@@ -9,12 +9,12 @@ import {
 import { tools } from "../dist/tools.js";
 
 const removedCredentialTools = [
-  "abrclick_get_database_credentials",
-  "abrclick_get_bucket_credentials",
-  "abrclick_rotate_bucket_credentials",
-  "abrclick_get_registry_credentials",
-  "abrclick_rotate_registry_credentials",
-  "abrclick_create_api_key",
+  "sakoocloud_get_database_credentials",
+  "sakoocloud_get_bucket_credentials",
+  "sakoocloud_rotate_bucket_credentials",
+  "sakoocloud_get_registry_credentials",
+  "sakoocloud_rotate_registry_credentials",
+  "sakoocloud_create_api_key",
 ];
 
 test("credential-bearing tools are not exported", () => {
@@ -23,37 +23,37 @@ test("credential-bearing tools are not exported", () => {
 });
 
 test("tool classification defaults unknown tools to confirmation", () => {
-  assert.equal(requiresUserConfirmation("abrclick_whoami"), false);
-  assert.equal(requiresUserConfirmation("abrclick_get_app"), false);
-  assert.equal(requiresUserConfirmation("abrclick_list_projects"), false);
-  assert.equal(requiresUserConfirmation("abrclick_get_source_upload_url"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_bucket_object_download_url"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_disk_backup_download_url"), true);
-  assert.equal(requiresUserConfirmation("abrclick_future_operation"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_future_secret"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_future_secrets"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_runtime_logs"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_function_source"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_env"), true);
-  assert.equal(requiresUserConfirmation("abrclick_get_project_env"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_project_secrets"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_api_keys"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_bucket_objects"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_registry_repositories"), true);
-  assert.equal(requiresUserConfirmation("abrclick_list_github_repos"), true);
-  assert.deepEqual(getToolAnnotations("abrclick_list_projects"), {
+  assert.equal(requiresUserConfirmation("sakoocloud_whoami"), false);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_app"), false);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_projects"), false);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_source_upload_url"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_bucket_object_download_url"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_disk_backup_download_url"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_future_operation"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_future_secret"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_future_secrets"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_runtime_logs"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_function_source"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_env"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_get_project_env"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_project_secrets"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_api_keys"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_bucket_objects"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_registry_repositories"), true);
+  assert.equal(requiresUserConfirmation("sakoocloud_list_github_repos"), true);
+  assert.deepEqual(getToolAnnotations("sakoocloud_list_projects"), {
     readOnlyHint: true,
     destructiveHint: false,
   });
-  assert.deepEqual(getToolAnnotations("abrclick_get_source_download_url"), {
+  assert.deepEqual(getToolAnnotations("sakoocloud_get_source_download_url"), {
     readOnlyHint: false,
     destructiveHint: false,
   });
-  assert.deepEqual(getToolAnnotations("abrclick_delete_app"), {
+  assert.deepEqual(getToolAnnotations("sakoocloud_delete_app"), {
     readOnlyHint: false,
     destructiveHint: true,
   });
-  assert.equal(getToolAnnotations("abrclick_github_disconnect").destructiveHint, true);
+  assert.equal(getToolAnnotations("sakoocloud_github_disconnect").destructiveHint, true);
 });
 
 test("result redaction handles nested arrays without mutating ordinary fields", () => {
@@ -83,7 +83,7 @@ function requester(response, supportsElicitation = true) {
   };
 }
 
-const tool = { name: "abrclick_delete_app", description: "Delete an app" };
+const tool = { name: "sakoocloud_delete_app", description: "Delete an app" };
 
 test("confirmation fails closed when elicitation is unavailable", async () => {
   let invocations = 0;
