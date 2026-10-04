@@ -6,7 +6,7 @@ import { SakooCloudClient } from "@sakoocloud/sdk";
  * takes. No env-var dance, no restart-with-env, no plaintext key in your shell profile.
  *
  * Priority:
- *   1. SAKOOCLOUD_API_KEY / SAKOOCLOUD_TOKEN env  → an `abr_sk_…` key (CI/headless). Never expires.
+ *   1. SAKOOCLOUD_API_KEY / SAKOOCLOUD_TOKEN env  → an `sakoo_sk_…` key (CI/headless). Never expires.
  *   2. The CLI login store (`sakoocloud login`)  → a JWT + refresh token. Auto-refreshed and
  *      persisted back to the store, so a long-lived server never goes stale mid-session.
  *   3. Neither → a clear error telling the user to run `sakoocloud login`.
@@ -55,7 +55,7 @@ export function createClient(): SakooCloudClient {
   if (!token) {
     throw new Error(
       "Not authenticated. Run `sakoocloud login` — this MCP server reads the same credentials.\n" +
-        "For CI/headless, set SAKOOCLOUD_API_KEY=abr_sk_… instead.\n" +
+        "For CI/headless, set SAKOOCLOUD_API_KEY=sakoo_sk_… instead.\n" +
         "Get the CLI: npm i -g @sakoocloud/cli",
     );
   }

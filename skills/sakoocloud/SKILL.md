@@ -42,7 +42,7 @@ claude mcp add sakoocloud -- npx -y @sakoocloud/ai   # or the equivalent for the
 ```
 
 The server reads the credentials `sakoocloud login` saves and auto-refreshes them, so nothing
-goes stale and there's no env var to manage. (CI/headless only: set `SAKOOCLOUD_API_KEY=abr_sk_…`
+goes stale and there's no env var to manage. (CI/headless only: set `SAKOOCLOUD_API_KEY=sakoo_sk_…`
 in the server env instead — it overrides the login session.)
 
 Confirm with `sakoocloud_whoami` — it returns the authenticated account. If it errors with

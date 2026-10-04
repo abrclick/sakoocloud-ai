@@ -65,7 +65,7 @@ The server resolves your credentials in this order:
    it automatically** in the background — a long-running editor session never goes stale,
    and you never restart anything. This is why there's no env var and no "reload your
    shell" dance.
-2. **`SAKOOCLOUD_API_KEY` env var (CI / headless).** Set an `abr_sk_…` key when there's no
+2. **`SAKOOCLOUD_API_KEY` env var (CI / headless).** Set an `sakoo_sk_…` key when there's no
    interactive login — e.g. a cron job or a remote box. It takes precedence over the login
    store when present. Create one with `sakoocloud keys create "ci"` or from **Settings →
    API Keys** in the dashboard. API keys don't expire (no refresh needed).
@@ -80,7 +80,7 @@ The server resolves your credentials in this order:
 
 | Variable               | Purpose                                                                              |
 | ---------------------- | ------------------------------------------------------------------------------------ |
-| `SAKOOCLOUD_API_KEY`     | An `abr_sk_…` key. Use for CI/headless; overrides the login store when set.           |
+| `SAKOOCLOUD_API_KEY`     | An `sakoo_sk_…` key. Use for CI/headless; overrides the login store when set.           |
 | `SAKOOCLOUD_TOKEN`       | Alias for `SAKOOCLOUD_API_KEY` (matches the CLI's CI variable).                         |
 | `SAKOOCLOUD_API_URL`     | Regional resource plane base URL. Override for self-host / dev.                       |
 | `SAKOOCLOUD_ACCOUNT_URL` | Global identity plane (auth, regions, billing reads).                                 |
@@ -155,7 +155,7 @@ No interactive login available? Set an API key in the server's environment inste
     "sakoocloud": {
       "command": "npx",
       "args": ["-y", "@sakoocloud/ai"],
-      "env": { "SAKOOCLOUD_API_KEY": "abr_sk_xxx" }
+      "env": { "SAKOOCLOUD_API_KEY": "sakoo_sk_xxx" }
     }
   }
 }
