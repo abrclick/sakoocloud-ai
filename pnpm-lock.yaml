@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@sakoocloud/sdk':
-        specifier: ^0.6.0
-        version: 0.6.0
       '@modelcontextprotocol/sdk':
         specifier: ^1.30.0
         version: 1.30.0(zod@3.25.76)
+      '@sakoocloud/sdk':
+        specifier: file:../sakoocloud-sdk
+        version: file:../sakoocloud-sdk(debug@4.4.3)
       conf:
         specifier: ^13.1.0
         version: 13.1.0
@@ -30,10 +30,6 @@ importers:
 
 packages:
 
-  '@sakoocloud/sdk@0.6.0':
-    resolution: {integrity: sha512-yItPYq7lSLZDYEwFnXR8zUv7t/9kD0eDVOs45Y51yILiIrWS4+IYRQamTJNa8nTm0FvbBxSScQqc9sR+mmIYrw==}
-    engines: {node: '>=18'}
-
   '@hono/node-server@2.1.0':
     resolution: {integrity: sha512-XovyyCCnBzW+zKu+z/zq8hwNs4KOR5rEMAOxo2f40Q5xoOI37IMm6MIg2COOUtUApo0i6850MTBKH2u4QLGIqg==}
     engines: {node: '>=20'}
@@ -49,6 +45,10 @@ packages:
     peerDependenciesMeta:
       '@cfworker/json-schema':
         optional: true
+
+  '@sakoocloud/sdk@file:../sakoocloud-sdk':
+    resolution: {directory: ../sakoocloud-sdk, type: directory}
+    engines: {node: '>=18'}
 
   '@types/node@22.20.1':
     resolution: {integrity: sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==}
@@ -517,13 +517,6 @@ packages:
 
 snapshots:
 
-  '@sakoocloud/sdk@0.6.0':
-    dependencies:
-      axios: 1.19.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
   '@hono/node-server@2.1.0(hono@4.13.2)':
     dependencies:
       hono: 4.13.2
@@ -548,6 +541,13 @@ snapshots:
       zod: 3.25.76
       zod-to-json-schema: 3.25.2(zod@3.25.76)
     transitivePeerDependencies:
+      - supports-color
+
+  '@sakoocloud/sdk@file:../sakoocloud-sdk(debug@4.4.3)':
+    dependencies:
+      axios: 1.19.0(debug@4.4.3)
+    transitivePeerDependencies:
+      - debug
       - supports-color
 
   '@types/node@22.20.1':
@@ -583,9 +583,9 @@ snapshots:
       stubborn-fs: 2.0.0
       when-exit: 2.1.5
 
-  axios@1.19.0:
+  axios@1.19.0(debug@4.4.3):
     dependencies:
-      follow-redirects: 1.16.0
+      follow-redirects: 1.16.0(debug@4.4.3)
       form-data: 4.0.6
       https-proxy-agent: 5.0.1
       proxy-from-env: 2.1.0
@@ -765,7 +765,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  follow-redirects@1.16.0: {}
+  follow-redirects@1.16.0(debug@4.4.3):
+    optionalDependencies:
+      debug: 4.4.3
 
   form-data@4.0.6:
     dependencies:

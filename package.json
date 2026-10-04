@@ -53,7 +53,7 @@
     "release:major": "npm version major && git push --follow-tags"
   },
   "dependencies": {
-    "@sakoocloud/sdk": "^0.6.0",
+    "@sakoocloud/sdk": "file:../sakoocloud-sdk",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "conf": "^13.1.0",
     "zod": "^3.25.76"
