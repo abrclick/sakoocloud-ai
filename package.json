@@ -5,7 +5,7 @@
   "description": "Give your AI coding tool full control of SakooCloud — deploy apps, provision databases, manage domains, DNS, backups, and more (PaaS + DBaaS for sakoocloud). MCP server.",
   "private": false,
   "license": "SEE LICENSE IN LICENSE",
-  "author": "SakooCloud <support@sakoocloud.cloud> (https://sakoocloud.ir)",
+  "author": "SakooCloud <support@sakoocloud.run> (https://sakoocloud.ir)",
   "homepage": "https://sakoocloud.ir",
   "bugs": {
     "url": "https://github.com/sakoocloud/sakoocloud-ai/issues"
