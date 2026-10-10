@@ -305,7 +305,7 @@ const restartApp: ToolDefinition = {
 const deployApp: ToolDefinition = {
   name: "sakoocloud_deploy_app",
   description:
-    "Deploy an SakooCloud app. source_type 'git' builds from the app's configured repo (optionally pin git_commit_sha); 'image' deploys a prebuilt image (image_tag); 'upload' deploys a source tarball previously uploaded via sakoocloud_get_source_upload_url (source_key). NOTE: uploading the tarball bytes is a file transfer this tool can't perform — the human must run `sakoocloud deploy` locally for tarball uploads.",
+    "Deploy an SakooCloud app. source_type 'git' builds from the app's configured repo (optionally pin git_commit_sha); 'image' deploys a prebuilt image (image_tag); 'upload' deploys a source tarball previously uploaded via sakoocloud_get_source_upload_url (source_key). NOTE: uploading the tarball bytes is a file transfer this tool can't perform — the human must run `sakoo deploy` locally for tarball uploads.",
   inputSchema: {
     app_id: z.string(),
     source_type: z.enum(["git", "image", "upload"]),
@@ -328,7 +328,7 @@ const deployApp: ToolDefinition = {
 const getSourceUploadUrl: ToolDefinition = {
   name: "sakoocloud_get_source_upload_url",
   description:
-    "Get a presigned URL to upload an app source tarball (returns source_key + upload URL). The actual byte upload must be done by the human via `sakoocloud deploy`; this only mints the URL.",
+    "Get a presigned URL to upload an app source tarball (returns source_key + upload URL). The actual byte upload must be done by the human via `sakoo deploy`; this only mints the URL.",
   inputSchema: {
     app_id: z.string(),
   },

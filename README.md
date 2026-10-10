@@ -38,17 +38,17 @@ database, links them, kicks off the build, tails the logs, and hands you the liv
 
   ```bash
   npm i -g @sakoocloud/cli
-  sakoocloud login
+  sakoo login
   ```
 
-That's the whole setup. The MCP server reads the **same credentials `sakoocloud login`
+That's the whole setup. The MCP server reads the **same credentials `sakoo login`
 saves** — you don't paste a key anywhere, and there's no env var to keep in sync.
 
 ## Quick start
 
 ```bash
 # 1. log in once (opens your browser)
-sakoocloud login
+sakoo login
 
 # 2. add the MCP server — no key, no env
 claude mcp add sakoocloud -- npx -y @sakoocloud/ai
@@ -60,14 +60,14 @@ Ask Claude: *"list my SakooCloud projects"* — if it answers, you're wired up.
 
 The server resolves your credentials in this order:
 
-1. **`sakoocloud login` (recommended).** The CLI stores a session (a short-lived access
+1. **`sakoo login` (recommended).** The CLI stores a session (a short-lived access
    token + a refresh token) in your OS config dir. The MCP server reads it, and **refreshes
    it automatically** in the background — a long-running editor session never goes stale,
    and you never restart anything. This is why there's no env var and no "reload your
    shell" dance.
 2. **`SAKOOCLOUD_API_KEY` env var (CI / headless).** Set an `sakoo_sk_…` key when there's no
    interactive login — e.g. a cron job or a remote box. It takes precedence over the login
-   store when present. Create one with `sakoocloud keys create "ci"` or from **Settings →
+   store when present. Create one with `sakoo keys create "ci"` or from **Settings →
    API Keys** in the dashboard. API keys don't expire (no refresh needed).
 
 > **Why not just an API key in the config?** A full-access key sitting in a shell profile
@@ -88,12 +88,12 @@ The server resolves your credentials in this order:
 
 > **Two planes.** SakooCloud separates a *global account plane* (who you are, regions,
 > billing) from *regional resource planes* (where your apps and databases actually run).
-> The package handles the split for you; `sakoocloud region use <slug>` (or `SAKOOCLOUD_REGION`)
+> The package handles the split for you; `sakoo region use <slug>` (or `SAKOOCLOUD_REGION`)
 > picks the region, and the MCP server follows it.
 
 ## Wiring it into an AI tool
 
-First run `sakoocloud login` once. Then add the server — **no `--env`, no key in the file**:
+First run `sakoo login` once. Then add the server — **no `--env`, no key in the file**:
 
 ### Claude Code
 
@@ -141,7 +141,7 @@ Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
 
 ### Windsurf / Cline / Continue / any other MCP client
 
-Launch `npx -y @sakoocloud/ai` as a **stdio** MCP server. It picks up your `sakoocloud login`
+Launch `npx -y @sakoocloud/ai` as a **stdio** MCP server. It picks up your `sakoo login`
 session automatically. The config blocks above are the same shape every client uses — copy
 one and change the file it goes in.
 
@@ -313,7 +313,7 @@ foot-guns:
   exposed. Plan upgrades/downgrades, add-on **purchases**, and wallet **top-ups** are
   intentionally **not** — money moves are a human decision in the dashboard.
 - **Sign-in is not exposed.** No login, register, password change, or device-code flow —
-  your `sakoocloud login` session (or an API key) already establishes identity. GitHub
+  your `sakoo login` session (or an API key) already establishes identity. GitHub
   **repo access** (for deploys) is exposed; GitHub/Google **sign-in** is not.
 - **API-key metadata and revocation are exposed.** `list_api_keys` and `revoke_api_key`
   require an `admin`-scoped key or a full login session. Creating a key returns a plaintext
@@ -329,9 +329,9 @@ foot-guns:
   another confirmation layer.
 - **Tarball / interactive ops need the CLI.** `deploy_app` supports `git` and `image`
   fully; `source_type: "upload"` deploys a tarball your AI can't stream — run
-  `sakoocloud deploy` for local-folder deploys. Likewise an **interactive shell / one-off
+  `sakoo deploy` for local-folder deploys. Likewise an **interactive shell / one-off
   exec** into a running container is a streaming WebSocket, not a request/response tool —
-  use `sakoocloud shell` / `sakoocloud run`.
+  use `sakoo shell` / `sakoo run`.
 - **Credentials stay out of MCP.** Retrieving or rotating database, bucket, and registry
   credentials and creating API keys are intentionally unavailable; use the Console or CLI.
   Environment secret values never return; rotate them by replacing values with `set_env`
@@ -344,7 +344,7 @@ npm install        # pulls @sakoocloud/sdk from the registry
 npm run type-check # tsc --noEmit
 npm run build      # tsc → dist/
 npm test           # build + security regression tests
-npm start          # runs dist/index.js (uses your `sakoocloud login` session)
+npm start          # runs dist/index.js (uses your `sakoo login` session)
 ```
 
 The tool surface tracks `@sakoocloud/sdk`. When the SDK gains a capability, add a matching

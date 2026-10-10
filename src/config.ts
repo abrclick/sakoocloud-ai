@@ -2,14 +2,14 @@ import Conf from "conf";
 import { SakooCloudClient } from "@sakoocloud/sdk";
 
 /**
- * Credential resolution — the same store the CLI writes, so `sakoocloud login` once is all it
+ * Credential resolution — the same store the CLI writes, so `sakoo login` once is all it
  * takes. No env-var dance, no restart-with-env, no plaintext key in your shell profile.
  *
  * Priority:
  *   1. SAKOOCLOUD_API_KEY / SAKOOCLOUD_TOKEN env  → an `sakoo_sk_…` key (CI/headless). Never expires.
- *   2. The CLI login store (`sakoocloud login`)  → a JWT + refresh token. Auto-refreshed and
+ *   2. The CLI login store (`sakoo login`)  → a JWT + refresh token. Auto-refreshed and
  *      persisted back to the store, so a long-lived server never goes stale mid-session.
- *   3. Neither → a clear error telling the user to run `sakoocloud login`.
+ *   3. Neither → a clear error telling the user to run `sakoo login`.
  *
  * The store is the exact `conf` project the CLI uses (projectName "sakoocloud"), so its path is
  * resolved per-OS by conf/env-paths (macOS ~/Library/Preferences, Linux ~/.config,
@@ -54,7 +54,7 @@ export function createClient(): SakooCloudClient {
   const token = store.get("token");
   if (!token) {
     throw new Error(
-      "Not authenticated. Run `sakoocloud login` — this MCP server reads the same credentials.\n" +
+      "Not authenticated. Run `sakoo login` — this MCP server reads the same credentials.\n" +
         "For CI/headless, set SAKOOCLOUD_API_KEY=sakoo_sk_… instead.\n" +
         "Get the CLI: npm i -g @sakoocloud/cli",
     );

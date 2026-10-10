@@ -10,7 +10,7 @@ description: >
   zones/records, promote to staging/production, roll back a deploy, read
   build/runtime/database logs or metrics, set alerts and backup schedules, manage project
   members or API keys, or check usage/billing on SakooCloud. Requires the sakoocloud MCP
-  server (`@sakoocloud/ai`); the user authenticates once with `sakoocloud login`.
+  server (`@sakoocloud/ai`); the user authenticates once with `sakoo login`.
 ---
 
 # SakooCloud
@@ -26,7 +26,7 @@ to (1) log in once, then (2) add the server — **no API key in the config**:
 
 ```bash
 npm i -g @sakoocloud/cli
-sakoocloud login
+sakoo login
 claude mcp add sakoocloud -- npx -y @sakoocloud/ai   # or the equivalent for their client
 ```
 
@@ -41,12 +41,12 @@ claude mcp add sakoocloud -- npx -y @sakoocloud/ai   # or the equivalent for the
 }
 ```
 
-The server reads the credentials `sakoocloud login` saves and auto-refreshes them, so nothing
+The server reads the credentials `sakoo login` saves and auto-refreshes them, so nothing
 goes stale and there's no env var to manage. (CI/headless only: set `SAKOOCLOUD_API_KEY=sakoo_sk_…`
 in the server env instead — it overrides the login session.)
 
 Confirm with `sakoocloud_whoami` — it returns the authenticated account. If it errors with
-"Not authenticated", the user hasn't run `sakoocloud login` yet.
+"Not authenticated", the user hasn't run `sakoo login` yet.
 
 ## Core model — read before acting
 
@@ -66,7 +66,7 @@ Confirm with `sakoocloud_whoami` — it returns the authenticated account. If it
 - **Farsi errors.** Tool errors carry both English and Farsi (`message_fa`). Surface the
   Farsi to the user when they're working in Farsi.
 - **Regions.** `sakoocloud_list_regions` shows deployment regions. Auth is region-agnostic;
-  the server follows whatever region `sakoocloud region use <slug>` selected (or the
+  the server follows whatever region `sakoo region use <slug>` selected (or the
   `SAKOOCLOUD_REGION` override).
 
 ## Common workflows
@@ -86,7 +86,7 @@ Confirm with `sakoocloud_whoami` — it returns the authenticated account. If it
 
 > Deploying from a **local folder** (uploading a source tarball) is **not** an MCP
 > operation — the AI can't stream file bytes. `sakoocloud_get_source_upload_url` mints the
-> URL, but tell the user to run `sakoocloud deploy` in their project directory to upload.
+> URL, but tell the user to run `sakoo deploy` in their project directory to upload.
 
 ### Deploy a prebuilt image
 
